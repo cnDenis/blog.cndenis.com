@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang]
-title: Erlang数据项的size
+Title: Erlang数据项的size
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang
 ---
 
 Erlang中数据项(Erlang Term)的所占据的空间大小可以用各种size来获取.

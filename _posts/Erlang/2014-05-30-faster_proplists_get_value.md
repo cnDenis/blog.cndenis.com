@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, 代码片段, proplists]
-title: 【Erl代码片段】更快的proplists:get_value/3
+Title: 【Erl代码片段】更快的proplists:get_value/3
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, 代码片段, proplists
 ---
 
 在cowboy的[cowboy_protocol.erl](https://github.com/extend/cowboy/blob/master/src/cowboy_protocol.erl)

@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, gen_server]
-title: 【Erlang】gen_server terminate的坑
+Title: 【Erlang】gen_server terminate的坑
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, gen_server
 ---
 
 gen_server进程结束时, 会调用`terminate`函数, 但这并不是在任何情况下都成立的.

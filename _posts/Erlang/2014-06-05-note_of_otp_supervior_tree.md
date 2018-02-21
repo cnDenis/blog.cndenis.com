@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, supervisor, OTP]
-title: OTP监控树笔记
+Title: OTP监控树笔记
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, supervisor, OTP
 ---
 
 这是Learn You Some Erlang中的[Building an Applications with Otp](http://learnyousomeerlang.com/building-applications-with-otp)的笔记.

@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Python
-tagline:
-tags : [Python, Tk]
-title: 利用tkFileDialog.askopenfilenames获取多个文件名
+Title: 利用tkFileDialog.askopenfilenames获取多个文件名
+Layout: post
+Category: Python
+Tagline: 
+Tags: Python, Tk
 ---
 
 用Python写小脚本，要选择文件，最简单的方式莫过于使用内置的Tk的控件了。如果需要同时选择多个文件，可以使用`tkFileDialog.askopenfilenames`，如下：

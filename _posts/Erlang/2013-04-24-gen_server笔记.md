@@ -1,10 +1,10 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, gen_server]
-title: gen_server笔记
-update: 2013-9-13
+Title: gen_server笔记
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, gen_server
+Modified: 2013-9-13
 ---
 
 gen_server是erlang的OTP框架中最常用的“行为模式”了吧，至少几本erlang教材都是首

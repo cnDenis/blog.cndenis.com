@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Python
-tagline:
-tags : [Python, pygraphviz]
-title: 在Windows下安装pygraphviz
+Title: 在Windows下安装pygraphviz
+Layout: post
+Category: Python
+Tagline: 
+Tags: Python, pygraphviz
 ---
 
 用 pip 或是 easy_install 在Windows 下安装 pygraphviz，

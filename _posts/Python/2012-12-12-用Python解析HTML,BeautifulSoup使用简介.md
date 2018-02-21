@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Python
-tagline:
-tags : [Python, BeautifulSoup]
-title: 用Python解析HTML，BeautifulSoup使用简介
+Title: 用Python解析HTML，BeautifulSoup使用简介
+Layout: post
+Category: Python
+Tagline: 
+Tags: Python, BeautifulSoup
 ---
 
 Beautiful Soup是一个用于解析HTML文件的Python库，这里介绍一下它的基本使用方法。

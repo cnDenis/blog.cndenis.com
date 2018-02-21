@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Web
-tagline:
-tags : [Apache]
-title: Apache启动时报443端口被占用的处理方法
+Title: Apache启动时报443端口被占用的处理方法
+Layout: post
+Category: Web
+Tagline: 
+Tags: Apache
 ---
 
 下午在自己机上装了Apache2.4, 启动时说443端口被占了:

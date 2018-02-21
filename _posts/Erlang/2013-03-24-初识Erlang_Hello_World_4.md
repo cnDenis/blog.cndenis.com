@@ -1,10 +1,10 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, HelloWorld]
-title: 初识Erlang，Hello World（4）
-update: 2013-9-13
+Title: 初识Erlang，Hello World（4）
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, HelloWorld
+Modified: 2013-9-13
 ---
 
 前几节的Hello world都是自言自语，今天试试对着别人说。首先是在本机上各个进程之间，

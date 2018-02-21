@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, 代码片段, 字符串]
-title: 【Erl代码片段】cowboy的一处大小写处理代码
+Title: 【Erl代码片段】cowboy的一处大小写处理代码
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, 代码片段, 字符串
 ---
 
 在cowboy的库cowlib中的[cow_inline.hrl](https://github.com/extend/cowlib/blob/master/include/cow_inline.hrl)文件看到一堆很长的宏:

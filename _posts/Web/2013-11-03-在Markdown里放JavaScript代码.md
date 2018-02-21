@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Web
-tagline:
-tags : [JavaScript, Markdwon]
-title: 在Markdown里放JavaScript代码
+Title: 在Markdown里放JavaScript代码
+Layout: post
+Category: Web
+Tagline: 
+Tags: JavaScript, Markdwon
 ---
 
 MarkDown里是可以直接放HTML标签的, 也可以放`<script>`, 但是要注意的是,

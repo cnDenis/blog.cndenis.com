@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, 并发, 列表]
-title: 【Erl代码片段】简易的并行版lists:map/2
+Title: 【Erl代码片段】简易的并行版lists:map/2
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, 并发, 列表
 ---
 
 Joe在书上示范了一个并行化的`lists:map`:

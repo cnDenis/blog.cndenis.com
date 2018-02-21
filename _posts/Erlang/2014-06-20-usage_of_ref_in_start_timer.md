@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, 时间]
-title: 【Erl代码片段】start_timer/3 发送的消息中的TimerRef的用途
+Title: 【Erl代码片段】start_timer/3 发送的消息中的TimerRef的用途
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, 时间
 ---
 
 Erlang中有两个很相似的延迟发送消息的函数, `send_after/3` 和 `start_timer/3`,

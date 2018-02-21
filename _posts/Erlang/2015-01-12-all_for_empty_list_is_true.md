@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, lists, all, any]
-title: 【Erlang】lists:all/2 和 lists:any/2 对于空列表运算结果是啥?
+Title: 【Erlang】lists:all/2 和 lists:any/2 对于空列表运算结果是啥?
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, lists, all, any
 ---
 
 先说结果, 无论F是什么, 结果都是这样:

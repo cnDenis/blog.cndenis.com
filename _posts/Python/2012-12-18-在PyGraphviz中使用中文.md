@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Python
-tagline:
-tags : [Python, PyGraphviz, 中文]
-title: 在 PyGraphviz 中使用中文
+Title: 在 PyGraphviz 中使用中文
+Layout: post
+Category: Python
+Tagline: 
+Tags: Python, PyGraphviz, 中文
 ---
 
 在 PyGraphviz 使用中文要注意的：

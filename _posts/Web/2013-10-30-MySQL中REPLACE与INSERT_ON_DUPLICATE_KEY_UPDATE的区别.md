@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Web
-tagline:
-tags : [SQL]
-title: MySQL中 REPLACE 与 INSERT ON DUPLICATE KEY UPDATE 的区别
+Title: MySQL中 REPLACE 与 INSERT ON DUPLICATE KEY UPDATE 的区别
+Layout: post
+Category: Web
+Tagline: 
+Tags: SQL
 ---
 
 MySQL中, 要一步实现 "如果没有则插入, 如果存在则替换" 这样的操作, 有两种方式,

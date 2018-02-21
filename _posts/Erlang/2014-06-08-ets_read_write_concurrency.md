@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, ets, 并发]
-title: 【Erlang】ETS的并发性能调节选项
+Title: 【Erlang】ETS的并发性能调节选项
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, ets, 并发
 ---
 
 ETS在创建表时, 有 `write_concurrency` 和 `read_concurrency` 这两个选项,

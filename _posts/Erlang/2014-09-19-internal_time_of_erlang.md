@@ -1,9 +1,9 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, 时间]
-title: 【Erlang】Erlang虚拟机的内部时钟
+Title: 【Erlang】Erlang虚拟机的内部时钟
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, 时间
 ---
 
 Erlang虚拟机可视为一个小型操作系统, 有自己的一套时钟系统, 与系统时间并不是完全一致的.

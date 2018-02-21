@@ -1,10 +1,10 @@
 ---
-layout: post
-category : Tools
-tagline:
-tags : [Sublime]
-title: 我的 Sublime Text2 配置
-update: 2013-9-12
+Title: 我的 Sublime Text2 配置
+Layout: post
+Category: Tools
+Tagline: 
+Tags: Sublime
+Modified: 2013-9-12
 ---
 
 Sublime Text 2是最近很火的一个代码编辑器，我也跟风玩了一下，果然很好用。方便的插件管理器加上丰富的插件，可以很容易把它调教得很顺手。几乎每项功能都可以用鼠标和键盘两种方式来实现，方便各种习惯的人。Sublime Text 2 的介绍与推荐网上已经有很多，这里记一下我安装的包和配置。

@@ -1,10 +1,10 @@
 ---
-layout: post
-category : Erlang
-tagline:
-tags : [Erlang, HelloWorld]
-title: 初识Erlang，Hello World（3）
-update: 2013-9-13
+Title: 初识Erlang，Hello World（3）
+Layout: post
+Category: Erlang
+Tagline: 
+Tags: Erlang, HelloWorld
+Modified: 2013-9-13
 ---
 
 今天不只要对World说Hello，还要对别人说Hello
