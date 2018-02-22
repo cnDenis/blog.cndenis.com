@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>我的 Sublime Text2 配置 - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html">
+
+        <meta name="author" content="cnDenis" />
+        <meta name="keywords" content="Sublime" />
+        <meta name="description" content="Sublime Text 2是最近很火的一个代码编辑器，我也跟风玩了一下，果然很好用。方便的插件管理器加上丰富的插件，可以很容易把它调教得很顺手。几乎每项功能都可以用鼠标和键盘两种方式来实现，方便各种习惯的人。Sublime Text 2 的介绍与推荐网上已经有很多，这里记一下我安装的包和配置。 Package Control (因为这东西在后台更新曾经导致我的Sublime完全崩溃, 已经弃用) 包管理器是必备的，新下载的Sublime Text 2 第一个装的肯定是这个，有了它，装其他的包就很方便了。 安装方式有两种，第一种是在线下载安装：在 Sublime Text 2 中按下ctrl+`（就是大键盘数字1左边的那个键），拷贝以下命令到窗口下部的终端中， import urllib2,os; pf=&#39;Package Control.sublime-package&#39;; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not …" />
+
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="我的 Sublime Text2 配置"/>
+        <meta property="og:url" content="http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html"/>
+        <meta property="og:description" content="Sublime Text 2是最近很火的一个代码编辑器，我也跟风玩了一下，果然很好用。方便的插件管理器加上丰富的插件，可以很容易把它调教得很顺手。几乎每项功能都可以用鼠标和键盘两种方式来实现，方便各种习惯的人。Sublime Text 2 的介绍与推荐网上已经有很多，这里记一下我安装的包和配置。 Package Control (因为这东西在后台更新曾经导致我的Sublime完全崩溃, 已经弃用) 包管理器是必备的，新下载的Sublime Text 2 第一个装的肯定是这个，有了它，装其他的包就很方便了。 安装方式有两种，第一种是在线下载安装：在 Sublime Text 2 中按下ctrl+`（就是大键盘数字1左边的那个键），拷贝以下命令到窗口下部的终端中， import urllib2,os; pf=&#39;Package Control.sublime-package&#39;; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not …"/>
+        <meta property="article:published_time" content="2013-01-25" />
+            <meta property="article:section" content="Tools" />
+            <meta property="article:tag" content="Sublime" />
+            <meta property="article:author" content="cnDenis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/tools.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Tools ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html"
+                       rel="bookmark"
+                       title="Permalink to 我的 Sublime Text2 配置">
+                        我的 Sublime Text2 配置
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-01-25T00:00:00+08:00"> 2013年01月25日 星期五</time>
+    </span>
+          <span class="label label-default">Modified</span>
+            <span class="modified">
+                <i class="fa fa-calendar"></i><time datetime="2013-09-12T00:00:00+08:00"> 2013年09月12日 星期四</time>
+            </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="http://blog.cndenis.com/tools/index.html">Tools</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html"
+                       rel="bookmark"
+                       title="Permalink to 我的 Sublime Text2 配置">
+                        http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html
+                    </a>
+                </p>
+                <p>Sublime Text 2是最近很火的一个代码编辑器，我也跟风玩了一下，果然很好用。方便的插件管理器加上丰富的插件，可以很容易把它调教得很顺手。几乎每项功能都可以用鼠标和键盘两种方式来实现，方便各种习惯的人。Sublime Text 2 的介绍与推荐网上已经有很多，这里记一下我安装的包和配置。</p>
+<p><a href="http://wbond.net/sublime_packages/package_control">Package Control</a>
+<em>(因为这东西在后台更新曾经导致我的Sublime完全崩溃, 已经弃用)</em></p>
+<p><strike>
+包管理器是必备的，新下载的Sublime Text 2 第一个装的肯定是这个，有了它，装其他的包就很方便了。</p>
+<p>安装方式有两种，第一种是在线下载安装：在 Sublime Text 2 中按下<code>ctrl+`</code>（就是大键盘数字1左边的那个键），拷贝以下命令到窗口下部的终端中，</p>
+<div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">urllib2</span><span class="o">,</span><span class="nn">os</span><span class="p">;</span> <span class="n">pf</span><span class="o">=</span><span class="s1">&#39;Package Control.sublime-package&#39;</span><span class="p">;</span> <span class="n">ipp</span><span class="o">=</span><span class="n">sublime</span><span class="o">.</span><span class="n">installed_packages_path</span><span class="p">();</span> <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">ipp</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ipp</span><span class="p">)</span> <span class="k">else</span> <span class="bp">None</span><span class="p">;</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">ProxyHandler</span><span class="p">()));</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ipp</span><span class="p">,</span><span class="n">pf</span><span class="p">),</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s1">&#39;http://sublime.wbond.net/&#39;</span><span class="o">+</span><span class="n">pf</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;%20&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">());</span> <span class="k">print</span> <span class="s1">&#39;Please restart Sublime Text to finish installation&#39;</span>
+</pre></div>
+
+
+<p>回车运行，重启 Sublime Text 2，即可。另一种方法是手动安装，看<a href="http://wbond.net/sublime_packages/package_control/installation">这里</a>，个人觉得不太必要，在没有网络的环境下，包管理器也没什么用了。</p>
+<p>在安装完包管理器之后，只要按下<code>ctrl+shift+p</code>，输入<code>ip</code>，选择“Package Control: Install Package”，然后输入要安装的包的名称，就可以在线安装了。
+</strike></p>
+<ol>
+<li>
+<p><a href="https://github.com/buymeasoda/soda-theme/">Soda</a></p>
+<p>这是个主题，也就是Sublime自身的皮肤，比自带的要漂亮一些。在包管理器中装上之后，打开配置文件<code>Preferences</code> -&gt; <code>Settings - User</code>，加上一行<code>"theme": "Soda Light.sublime-theme"</code>或者 <code>"theme": "Soda Dark.sublime-theme"</code>。前面一个是亮色主题，后面一个是暗色主题。我喜欢暗色，看起来比较有黑客的调调。</p>
+</li>
+<li>
+<p><a href="http://madeofcode.com/posts/29">Made of code</a></p>
+<p>这个是代码高亮方案。包管理器中没有这个方案，官网似乎要翻墙才能上，国内可以在<a href="https://github.com/kumarnitin/made-of-code-tmbundle/tree/master/Themes">这里</a>下载。把下载到的<code>Made of Code.tmTheme</code>放到Sublime Text 2的安装目录下的<code>Data\Packages\Color Scheme - Default</code>文件夹，然后就可以在<code>Preferences</code> -&gt; <code>Color Scheme</code>选择<code>made of code</code>。</p>
+</li>
+<li>
+<p><a href="https://github.com/erinata/SublimeMarkdownBuild">Markdown Build</a></p>
+</li>
+<li>
+<p><a href="https://github.com/revolunet/sublimetext-markdown-preview">MarkDown preview</a></p>
+<p>这两个是写Markdown必备的。可以在包管理器中安装。装完之后，写作Markdown时（右下角显示语法为Markdown），可以按<code>ctrl+b</code>，直接就会生成HTML，并在浏览器中显示。</p>
+</li>
+<li>
+<p><a href="https://github.com/jonschlinkert/sublime-markdown-extended">sublime-markdown-extended</a></p>
+<p>这个是用来支持放在Markdown文件头部的yaml信息的代码高亮, 便于使用jekyll写Blog.</p>
+</li>
+<li>
+<p><a href="https://github.com/titoBouzout/SideBarEnhancements">SideBarEnhancements</a></p>
+<p>这是用来增强左边的侧边栏。左侧边栏可以在<code>View</code> -&gt; <code>Side Bar</code> -&gt; <code>Show Side Bar</code>中打开，可以用<code>Project</code> -&gt; <code>Add Folder to Project...</code>往侧边栏加入常用的文件夹。装完这个插件，侧边栏的右键菜单会多一些功能，挺实用的。</p>
+</li>
+<li>
+<p><a href="https://github.com/SublimeLinter/SublimeLinter">SublimeLinter</a></p>
+<p>这是用来在写代码时做代码检查的。可以在包管理器中安装。写Python程序的话，它还会帮你查代码是否符合<a href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>的要求。有问题有代码会出现白框，点击时底下的状态栏会提示出什么问题。</p>
+</li>
+<li>
+<p><a href="https://bitbucket.org/StephaneBunel/pythonpep8autoformat">Python PEP8 Autoformat</a></p>
+<p>这是用来按PEP8自动格式化代码的。可以在包管理器中安装。如果以前写程序不留意的话，用SublimeLinter一查，满屏都是白框框，只要装上这个包，按<code>ctrl+shift+r</code>，代码就会按PEP8要求自动格式化了，一屏的白框几乎都消失了。</p>
+</li>
+<li>
+<p><a href="https://github.com/akira-cn/sublime-gbk">gbk</a></p>
+<p>听说Sublime Text 2读GBK编码的文件会乱码，所以我早早就把这个给装上了，没见过乱码，不知管用不。</p>
+</li>
+<li>
+<p><a href="https://github.com/facelessuser/BracketHighlighter">Bracket Highlighter</a></p>
+<p>这是用来做括号匹配高亮的，可以在包管理器中安装。Sublime Text 2自带的括号匹配只有小小的一横线，太不显眼了，这个可以让高亮变成大大的一坨，不过我觉得它大得会盖住光标了。<em>(现在已经不用了)</em></p>
+</li>
+<li>
+<p><a href="http://wbond.net/sublime_packages/terminal">Terminal</a></p>
+<p>这是用来在当前文件所在位置打开终端的。可以在包管理器中安装。对于Windows用户，安装完后，要先在<code>Preferences</code> -&gt; <code>Package Setting</code> -&gt; <code>Terminal</code> -&gt; <code>Settings - Default</code>里，设置<code>"terminal": "cmd",</code>。（如果喜欢用ipython的话，也可以改为ipython）之后只要按下<code>ctrl+shift+t</code>，即可在当前文件位置打开命令行窗口。</p>
+</li>
+<li>
+<p><a href="https://github.com/wbond/sublime_alignment">Alignment</a></p>
+<p>用来做代码对齐的, 最主要是做等号对齐. 我的设置把默认快捷键取消掉, 自定义为
+<code>{ "keys": ["alt+a"], "command": "alignment" }</code>,
+按<code>alt+a</code>进行等号对齐.</p>
+</li>
+<li>
+<p><a href="https://github.com/kemayo/sublime-text-2-goto-documentation">Goto Documentation</a></p>
+<p>这是用来快速查文档的, 我的设置把默认快捷键取消掉, 自定义为 <code>{"keys": ["f1"], "command": "goto_documentation"}</code>, 按F1就可以跳转到光标位置的文件.</p>
+<p>我把这个插件Fork出来改了几行, 添加了对 Erlang 的支持, 在<a href="https://github.com/cnDenis/sublime-text-2-goto-documentation">这里</a></p>
+</li>
+<li>
+<p><a href="https://github.com/srusskih/SublimeJEDI">SublimeJEDI</a></p>
+<p>这个似乎是目前ST2上最好用的Python代码补全插件, 不过它的快捷键默认设置比较坑爹, 我全部取消掉, 具体设置看我的 GIST: <a href="https://gist.github.com/cnDenis/6525289">键盘设置</a> 和 <a href="https://gist.github.com/cnDenis/6525329">鼠标设置</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kairyou/SublimeTmpl">SublimeTmpl</a></p>
+<p>新建文件时的模板, <a href="https://gist.github.com/cnDenis/6525289">我的GIST</a>里有在不同语法环境下打开不同模板文件的设置. 对于经常要在多种语言下工具的人比较方便</p>
+</li>
+<li>
+<p><a href="https://github.com/fjl/Sublime-Erlang">Sublime-Erlang</a></p>
+</li>
+<li>
+<p><a href="https://github.com/ostinelli/SublimErl">Sublimerl</a></p>
+<p>这两个是用ST2写Erlang代码必备插件, 前一个提供了更好的语方高亮等支持, 需要禁用掉Sublime自带的Erlang插件.
+后一个提供了代码补全功能, 可恶的是原作者人为不支持Windows, 所以我自己<a href="https://github.com/cnDenis/SublimErl">Fork了一份</a>, 添加了对Windows的支持.</p>
+</li>
+</ol>
+<p>我还安装了另外的一些包，还没怎么用，这里就不详细介绍了：</p>
+<ul>
+<li><a href="https://github.com/welefen/KeymapManager">KeymapManager</a> 插件快捷键管理，快捷键<code>ctrl+alt+k</code></li>
+<li><a href="https://github.com/clintberry/sublime-text-2-ini">INI file Syntax Highlighting</a>  ini文件代码高亮</li>
+<li><a href="https://github.com/colinta/ApacheConf.tmLanguage">ApacheConf.tmLanguage</a> Apache配置文件代码高亮</li>
+<li><a href="https://github.com/stuartherbert/sublime-phpsnippets">sublime-phpsnippets</a> 更多的一些PHP代码补全</li>
+<li><a href="https://github.com/SublimeText/jQuery">jQuery</a> jQuery</li>
+<li><a href="https://github.com/SublimeText/Tag">Tag</a> HTML标签补完、格式化</li>
+</ul>
+<p>还有一些我装了又删掉的包，不是说它们做得不好，而是我不喜欢或是在我的机上莫明运行不能，不折腾了。</p>
+<ul>
+<li><a href="https://github.com/dreadatour/Pep8Lint">Pep8Lint</a> PEP8检查，其实用SublimeLinter检查就够了</li>
+<li><a href="https://github.com/Kronuz/SublimeCodeIntel">SublimeCodeIntel</a> 代码补全，这东西上百兆的巨大体积就不说了，问题是在我的比较大的代码文件上工作不正常，不知怎么办。反正Sublime Text 2本身也自带一点代码补完功能，这个不用也罢了。</li>
+</ul>
+<p>Sublime Text 2 我最常用快捷键是以下几个：</p>
+<ul>
+<li><code>ctrl+p</code> 跳转到任意文件</li>
+<li><code>ctrl+r</code> 快速定位到指定类/函数/标题</li>
+<li><code>ctrl+g</code> 快速跳转到某一行号，在debug时很常用</li>
+<li><code>ctrl+d</code> 多处选择, 绝对的<strong>神器</strong>!</li>
+<li><code>ctrl+b</code> build</li>
+<li><code>ctrl+shift+t</code> 在当前位置打开终端（需安装terminal）</li>
+<li><code>ctrl+shift+r</code> 按PEP8格式化代码（需安装Python PEP8 Autoformat）</li>
+<li><code>ctrl+shift+p</code> 基本上啥功能都在里面了</li>
+</ul>
+<p>还有 <code>ctrl+s</code>、<code>ctrl+a</code>、<code>ctrl+z</code>、<code>ctrl+x</code>、<code>ctrl+c</code>、<code>ctrl+v</code>这些和其他软件一样，就不用多说了</p>
+<p>Sublime Text 2 的配置文件的修改可以参考<a href="http://www.feelcss.com/sublime-text-2-settings.html">Sublime Text 2 设置文件详解</a>。默认其实已经挺好，我是在<code>Preferences</code> -&gt; <code>Setting User</code>加了这几行：</p>
+<div class="highlight"><pre><span></span>    <span class="s2">&quot;default_line_ending&quot;</span><span class="err">:</span> <span class="s2">&quot;unix&quot;</span><span class="err">,</span>
+    <span class="s2">&quot;rulers&quot;</span><span class="err">:</span><span class="p">[</span><span class="mi">78</span><span class="p">]</span><span class="err">,</span>
+    <span class="s2">&quot;translate_tabs_to_spaces&quot;</span><span class="err">:</span> <span class="kc">true</span>
+</pre></div>
+
+
+<p>分别是用来设定行尾换行符、显示长行标尺和按tab输出空格。</p>
+<p>另外有一个很实用的设置，在括号中使用Enter跳出括号，在<code>Preferences</code> -&gt; <code>Key Bindings User</code>中加上</p>
+<div class="highlight"><pre><span></span>    <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&quot;keys&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;enter&quot;</span><span class="p">],</span> <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;move&quot;</span><span class="p">,</span> <span class="nt">&quot;args&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;by&quot;</span><span class="p">:</span> <span class="s2">&quot;characters&quot;</span><span class="p">,</span> <span class="nt">&quot;forward&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span> <span class="nt">&quot;context&quot;</span><span class="p">:</span>
+            <span class="p">[</span>
+                <span class="p">{</span> <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;following_text&quot;</span><span class="p">,</span> <span class="nt">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;regex_contains&quot;</span><span class="p">,</span> <span class="nt">&quot;operand&quot;</span><span class="p">:</span> <span class="s2">&quot;^[)\\]\\&gt;\\&#39;\\\&quot;\\ %&gt;\\}\\;\\,]&quot;</span><span class="p">,</span> <span class="nt">&quot;match_all&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+                <span class="p">{</span> <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;preceding_text&quot;</span><span class="p">,</span> <span class="nt">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;not_regex_match&quot;</span><span class="p">,</span> <span class="nt">&quot;operand&quot;</span><span class="p">:</span> <span class="s2">&quot;^.*\\{$&quot;</span><span class="p">,</span> <span class="nt">&quot;match_all&quot;</span><span class="p">:</span> <span class="kc">true</span>  <span class="p">},</span>
+                <span class="p">{</span> <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;auto_complete_visible&quot;</span><span class="p">,</span> <span class="nt">&quot;operator&quot;</span><span class="p">:</span> <span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="nt">&quot;operand&quot;</span><span class="p">:</span> <span class="kc">false</span> <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+</pre></div>
+
+
+<p>暂时先这么多，以后再补充吧。</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://lucifr.com/2011/08/31/sublime-text-2-tricks-and-tips/">Sublime Text 2 入门及技巧</a></li>
+<li><a href="http://timewilltell.me/node/15">配置Sublime Text使用Markdown，语法高亮,生成HTML</a></li>
+<li><a href="http://www.qianduan.net/essential-to-sublime-the-text-2-plugins.html">一些必不可少的Sublime Text 2插件</a></li>
+<li><a href="http://www.feelcss.com/sublime-text-2-settings.html">Sublime Text 2 设置文件详解</a></li>
+<li><a href="http://ruby-china.org/topics/4824">sublime 怎样跳出括号？</a></li>
+</ul>
+<h4>更新+后记+废话(2013年9月12日):</h4>
+<p>现在已经不用 Package Control 了, 其实 ST2 的插件多数都在 Github上, 自己上去找插件, 放到 Packages 文件夹里就好, 用 Github 进行升级和管理, 比什么都好.</p>
+<p>这篇文章是1月份写的, 最初是放在<a href="cndenis.iteye.com">我的iteye博客</a>上的. ST2 从年初用到现在, 我从业余码农变成职业码农, 重装过一两回ST2, 增减了一些插件. 之前主要是用来写 Python, 现在还要兼顾 Erlang/ PHP/ JavaScript/ HTML, 还有于是又多了一些插件. 主要的加到上面去了.</p>
+<p>ST2的插件十分丰富的. 刚开始玩的人, 尤其是装上了 Package Control 这么方便的东西之后, 可能会使劲地往里头装东西. 但用过一段时间会发现, 很多插件其实并不太用得上, 装多了反而会造成快捷键冲突/影响运行速度和稳定性的问题, 于是就会想着去精简一些插件. 这和折腾其它的东西也是很像的, 从简陋到臃肿, 再到简约.</p>
+<p>ST2本身强大的功能配合丰富的插件, 使我可以把它变成一个大一统的IDE, 写啥代码都用它, 统一操作习惯, 很爽.</p>
+<p>ST2的插件是十分自由的, 有点 Python 基础的都可以自己折腾着玩, 我自己都Fork过几个, 按着自己的需要改来用. 我想, 喜欢折腾和喜欢造轮子的人, 大概都会喜欢上它吧.</p>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html"
+                       rel="bookmark"
+                       title="Permalink to 我的 Sublime Text2 配置">
+                        http://blog.cndenis.com/tools/2013/01/我的Sublime_Text_2配置.html
+                    </a>
+                </p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (6)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2012/12/index.html"><i class="fa fa-calendar fa-lg"></i>十二月 2012 (5)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

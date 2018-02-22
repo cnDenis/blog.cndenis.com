@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>用Python解析HTML，BeautifulSoup使用简介 - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html">
+
+        <meta name="author" content="cnDenis" />
+        <meta name="keywords" content="Python,BeautifulSoup" />
+        <meta name="description" content="Beautiful Soup是一个用于解析HTML文件的Python库，这里介绍一下它的基本使用方法。 Beautiful Soup字面意思是美好的汤，主页在 http://www.crummy.com/software/BeautifulSoup/， 下载与安装无需啰嗦，假设你已经装好了，现在开始吧。 装汤——Making the Soup 首先要把待解析的HTML装入BeautifulSoup。BeautifulSoup可以接受文件句柄或是字符串作为输入： from bs4 import BeautifulSoup fp = open(&#34;index.html&#34;) soup1 = BeautifulSoup(fp) soup2 = BeautifulSoup(&#34;&lt;html&gt;data&lt;/html&gt;&#34;) 汤料——Soup中的对象 标签（Tag） 标签对应于HTML元素，也就是应于一对HTML标签以及括起来的内容（包括内层标签和文本），如： soup = BeautifulSoup(&#39;&lt;b class=&#34;boldest …" />
+
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="用Python解析HTML，BeautifulSoup使用简介"/>
+        <meta property="og:url" content="http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html"/>
+        <meta property="og:description" content="Beautiful Soup是一个用于解析HTML文件的Python库，这里介绍一下它的基本使用方法。 Beautiful Soup字面意思是美好的汤，主页在 http://www.crummy.com/software/BeautifulSoup/， 下载与安装无需啰嗦，假设你已经装好了，现在开始吧。 装汤——Making the Soup 首先要把待解析的HTML装入BeautifulSoup。BeautifulSoup可以接受文件句柄或是字符串作为输入： from bs4 import BeautifulSoup fp = open(&#34;index.html&#34;) soup1 = BeautifulSoup(fp) soup2 = BeautifulSoup(&#34;&lt;html&gt;data&lt;/html&gt;&#34;) 汤料——Soup中的对象 标签（Tag） 标签对应于HTML元素，也就是应于一对HTML标签以及括起来的内容（包括内层标签和文本），如： soup = BeautifulSoup(&#39;&lt;b class=&#34;boldest …"/>
+        <meta property="article:published_time" content="2012-12-12" />
+            <meta property="article:section" content="Python" />
+            <meta property="article:tag" content="Python" />
+            <meta property="article:tag" content="BeautifulSoup" />
+            <meta property="article:author" content="cnDenis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/python.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Python ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html"
+                       rel="bookmark"
+                       title="Permalink to 用Python解析HTML，BeautifulSoup使用简介">
+                        用Python解析HTML，BeautifulSoup使用简介
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2012-12-12T00:00:00+08:00"> 2012年12月12日 星期三</time>
+    </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="http://blog.cndenis.com/python/index.html">Python</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.cndenis.com/tag/python.html">Python</a>
+        /
+	<a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html"
+                       rel="bookmark"
+                       title="Permalink to 用Python解析HTML，BeautifulSoup使用简介">
+                        http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html
+                    </a>
+                </p>
+                <p>Beautiful Soup是一个用于解析HTML文件的Python库，这里介绍一下它的基本使用方法。</p>
+<p>Beautiful Soup字面意思是美好的汤，主页在 <a href="http://www.crummy.com/software/BeautifulSoup/">http://www.crummy.com/software/BeautifulSoup/</a>，
+下载与安装无需啰嗦，假设你已经装好了，现在开始吧。</p>
+<hr>
+<h2>装汤——Making the Soup</h2>
+<p>首先要把待解析的HTML装入BeautifulSoup。BeautifulSoup可以接受文件句柄或是字符串作为输入：</p>
+<div class="highlight"><pre><span></span>    <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+    <span class="n">soup1</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="n">soup2</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="s2">&quot;&lt;html&gt;data&lt;/html&gt;&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<hr>
+<h2>汤料——Soup中的对象</h2>
+<h3>标签（Tag）</h3>
+<p>标签对应于HTML元素，也就是应于一对HTML标签以及括起来的内容（包括内层标签和文本），如：</p>
+<div class="highlight"><pre><span></span>    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="s1">&#39;&lt;b class=&quot;boldest&quot;&gt;Extremely bold&lt;/b&gt;&#39;</span><span class="p">)</span>
+    <span class="n">tag</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">b</span>
+</pre></div>
+
+
+<p>soup.b就是一个标签，soup其实也可以视为是一个标签，其实整个HTML就是由一层套一层的标签组成的。</p>
+<h3>名字（Name）</h3>
+<p>名字对应于HTML标签中的名字（也就是尖括号里的第一项）。每个标签都具有名字，标签的名字使用<code>.name</code>来访问，例如上例中，</p>
+<div class="highlight"><pre><span></span>    <span class="n">tag</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="sa">u</span><span class="s1">&#39;b&#39;</span>
+    <span class="n">soup</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="sa">u</span><span class="s1">&#39;[document]&#39;</span>
+</pre></div>
+
+
+<h3>属性（Atrriutes）</h3>
+<p>属性对应于HTML标签中的属性部分（也就是尖括号里带等号的那些）。标签可以有许多属性，也可以没有属性。属性使用类似于字典的形式访问，用方括号加属性名，例如上例中，</p>
+<div class="highlight"><pre><span></span>    <span class="n">tag</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">==</span>  <span class="sa">u</span><span class="s1">&#39;boldest&#39;</span>
+</pre></div>
+
+
+<p>可以使用.attrs直接获得这个字典，例如，</p>
+<div class="highlight"><pre><span></span>    <span class="n">tag</span><span class="o">.</span><span class="n">attrs</span> <span class="o">==</span> <span class="p">{</span><span class="sa">u</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;boldest&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<h3>文本（Text）</h3>
+<p>文本对应于HTML中的文本（也就是尖括号外的部分）。文件使用<code>.text</code>来访问，例如上例中，</p>
+<div class="highlight"><pre><span></span>    <span class="n">tag</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span>  <span class="sa">u</span><span class="s1">&#39;Extremely bold&#39;</span>
+</pre></div>
+
+
+<hr>
+<h2>找汤料——Soup中的查找</h2>
+<p>解析一个HTML通常是为了找到感兴趣的部分，并提取出来。BeautifulSoup提供了<code>find</code>和<code>find_all</code>的方法进行查找。<code>find</code>只返回找到的第一个标签，而<code>find_all</code>则返回一个列表。因为查找用得很多，所以BeautifulSoup做了一些很方便的简化的使用方式：</p>
+<div class="highlight"><pre><span></span>    <span class="n">tag</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>  <span class="c1">#等价于 tag(&quot;a&quot;)</span>
+    <span class="n">tag</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="c1">#等价于 tag.a</span>
+</pre></div>
+
+
+<p>因为找不到的话，find_all返回空列表，<code>find</code>返回<code>None</code>，而不会抛出异常，所以，也不用担心 <code>tag("a")</code> 或 <code>tag.a</code> 会因为找不到而报错。限于python的语法对变量名的规定，<code>tag.a</code> 的形式只能是按名字查找，因为点号.后面只能接变量名，而带括号的形式 <code>tag()</code> 或 <code>tag.find()</code> 则可用于以下的各种查找方式。</p>
+<p>查找可以使用多种方式：字符串、列表、键-值（字典）、正则表达式、函数</p>
+<ul>
+<li>
+<p>字符串：  字符串会匹配标签的名字，例如 <code>tag.a</code> 或 <code>tag("a")</code></p>
+</li>
+<li>
+<p>列表：  可以按一个字符串列表查找，返回名字匹配<em>任意</em>一个字符串的标签。例如 <code>tag("h2", "p")</code></p>
+</li>
+<li>
+<p>键-值： 可以用<code>tag(key=value)</code>的形式，来按标签的属性查找。键-值查找里有比较多的小花招，这里列几条：</p>
+</li>
+<li>
+<p>class
+<code>class</code>是Python的保留字，不能当变量名用，偏偏在HTML中会有很多 <code>class=XXX</code> 的情况，BeautifulSoup的解决方法是加一下划线，用 <code>class_</code> 代替,如 <code>tag(class_=XXX)</code>。</p>
+</li>
+<li>True
+当值为True时，会匹配所有带这个键的标签，如 <code>tag(href=True)</code></li>
+<li>
+<p>text
+text做为键时表示查找按标签中的文本查找，如 <code>tag(text=something）</code></p>
+</li>
+<li>
+<p>正则表达式：  例如 <code>tag(href=re.compile("elsie"))</code></p>
+</li>
+<li>
+<p>函数：  当以上方法都行不通时，函数是终极方法。写一个以单个标签为参数的函数，传入 <code>find</code> 或 <code>find_all</code> 进行查找。如</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tag</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">tag</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+    <span class="n">tag</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span> <span class="c1"># 会返回所有带class属性但不带id属性的标签</span>
+</pre></div>
+
+
+<hr>
+<h2>再来一碗——按文档的结构查找</h2>
+<p>HTML可以解析成一棵标签树，因此也可以按标签在树中的相互关系来查找。</p>
+<ul>
+<li>
+<p>查找上层节点：<code>find_parents()</code> 和 <code>find_parent()</code></p>
+</li>
+<li>
+<p>查找下一个兄弟节点：<code>find_next_siblings()</code> 和 <code>find_next_sibling()</code></p>
+</li>
+<li>查找上一个兄弟节点：<code>find_previous_siblings()</code> 和 <code>find_previous_sibling()</code></li>
+</ul>
+<p>以上四个都只会查同一父节点下的兄弟</p>
+<ul>
+<li>
+<p>查找下层节点：其实上面说的find和find_all就是干这活的</p>
+</li>
+<li>
+<p>查找下一个节点（无视父子兄弟关系） <code>find_all_next()</code> 和 <code>find_next()</code></p>
+</li>
+<li>查找上一个节点（无视父子兄弟关系） <code>find_all_previous()</code> 和  <code>find_previous()</code></li>
+</ul>
+<p>以上的这些查找的参都和<code>find</code>一样，可以搭配着用。</p>
+<hr>
+<h2>看颜色选汤——按CSS查找</h2>
+<p>用 <code>.select()</code>方法，看 <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors">http://www.crummy.com/software/BeautifulSoup/bs4/doc/#css-selectors</a></p>
+<h2>一些小花招</h2>
+<ul>
+<li>
+<p>BeautifulSoup 可以支持多种解析器，如lxml, html5lib, html.parser. 如：<code>BeautifulSoup("&lt;a&gt;&lt;/b&gt;", "html.parser")</code></p>
+</li>
+<li>
+<p>BeautifulSoup 用于解析xml的话，目前只支持lxml，需要自己另行安装。</p>
+</li>
+</ul>
+<p>具体表现可参考 <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/#differences-between-parsers">http://www.crummy.com/software/BeautifulSoup/bs4/doc/#differences-between-parsers</a></p>
+<ul>
+<li>
+<p>BeautifulSoup 在解析之前会先把文本转换成unicode。BeautifulSoup会优先考虑使用页面的charset定义。如果遇上网页的charset定义与实际使用的不符，就可能会产年乱码。可以用 <code>from_encoding</code> 指定编码，如：<code>BeautifulSoup(markup, from_encoding="gb18030")</code></p>
+</li>
+<li>
+<p>soup.prettify()可以输出排列得很好看的HTML文本，遇上中文的话可以指定编码使其显示正常，如 <code>soup.prettify("gbk")</code></p>
+</li>
+</ul>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html"
+                       rel="bookmark"
+                       title="Permalink to 用Python解析HTML，BeautifulSoup使用简介">
+                        http://blog.cndenis.com/python/2012/12/用Python解析HTML,BeautifulSoup使用简介.html
+                    </a>
+                </p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (6)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2012/12/index.html"><i class="fa fa-calendar fa-lg"></i>十二月 2012 (5)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

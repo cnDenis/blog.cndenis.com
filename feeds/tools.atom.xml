@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>cnDenis的笔记 - Tools</title><link href="http://blog.cndenis.com/" rel="alternate"></link><link href="http://blog.cndenis.com/feeds/tools.atom.xml" rel="self"></link><id>http://blog.cndenis.com/</id><updated>2013-09-12T00:00:00+08:00</updated><entry><title>我的 Sublime Text2 配置</title><link href="http://blog.cndenis.com/tools/2013/01/%E6%88%91%E7%9A%84Sublime_Text_2%E9%85%8D%E7%BD%AE.html" rel="alternate"></link><published>2013-01-25T00:00:00+08:00</published><updated>2013-09-12T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-01-25:/tools/2013/01/我的Sublime_Text_2配置.html</id><summary type="html">&lt;p&gt;Sublime Text 2是最近很火的一个代码编辑器，我也跟风玩了一下，果然很好用。方便的插件管理器加上丰富的插件，可以很容易把它调教得很顺手。几乎每项功能都可以用鼠标和键盘两种方式来实现，方便各种习惯的人。Sublime Text 2 的介绍与推荐网上已经有很多，这里记一下我安装的包和配置。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://wbond.net/sublime_packages/package_control"&gt;Package Control&lt;/a&gt;
+&lt;em&gt;(因为这东西在后台更新曾经导致我的Sublime完全崩溃, 已经弃用)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strike&gt;
+包管理器是必备的，新下载的Sublime Text 2 第一个装的肯定是这个，有了它，装其他的包就很方便了。&lt;/p&gt;
+&lt;p&gt;安装方式有两种，第一种是在线下载安装：在 Sublime Text 2 中按下&lt;code&gt;ctrl+`&lt;/code&gt;（就是大键盘数字1左边的那个键），拷贝以下命令到窗口下部的终端中，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="nn"&gt;os&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;pf&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Package Control.sublime-package&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;ipp&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;sublime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;installed_packages_path&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;makedirs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ipp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Sublime Text 2是最近很火的一个代码编辑器，我也跟风玩了一下，果然很好用。方便的插件管理器加上丰富的插件，可以很容易把它调教得很顺手。几乎每项功能都可以用鼠标和键盘两种方式来实现，方便各种习惯的人。Sublime Text 2 的介绍与推荐网上已经有很多，这里记一下我安装的包和配置。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://wbond.net/sublime_packages/package_control"&gt;Package Control&lt;/a&gt;
+&lt;em&gt;(因为这东西在后台更新曾经导致我的Sublime完全崩溃, 已经弃用)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strike&gt;
+包管理器是必备的，新下载的Sublime Text 2 第一个装的肯定是这个，有了它，装其他的包就很方便了。&lt;/p&gt;
+&lt;p&gt;安装方式有两种，第一种是在线下载安装：在 Sublime Text 2 中按下&lt;code&gt;ctrl+`&lt;/code&gt;（就是大键盘数字1左边的那个键），拷贝以下命令到窗口下部的终端中，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="nn"&gt;os&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;pf&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Package Control.sublime-package&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;ipp&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;sublime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;installed_packages_path&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;makedirs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ipp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exists&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ipp&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install_opener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;build_opener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ProxyHandler&lt;/span&gt;&lt;span class="p"&gt;()));&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ipp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;pf&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;wb&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;urllib2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urlopen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;http://sublime.wbond.net/&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;pf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;%20&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt; &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Please restart Sublime Text to finish installation&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;回车运行，重启 Sublime Text 2，即可。另一种方法是手动安装，看&lt;a href="http://wbond.net/sublime_packages/package_control/installation"&gt;这里&lt;/a&gt;，个人觉得不太必要，在没有网络的环境下，包管理器也没什么用了。&lt;/p&gt;
+&lt;p&gt;在安装完包管理器之后，只要按下&lt;code&gt;ctrl+shift+p&lt;/code&gt;，输入&lt;code&gt;ip&lt;/code&gt;，选择“Package Control: Install Package”，然后输入要安装的包的名称，就可以在线安装了。
+&lt;/strike&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/buymeasoda/soda-theme/"&gt;Soda&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是个主题，也就是Sublime自身的皮肤，比自带的要漂亮一些。在包管理器中装上之后，打开配置文件&lt;code&gt;Preferences&lt;/code&gt; -&amp;gt; &lt;code&gt;Settings - User&lt;/code&gt;，加上一行&lt;code&gt;"theme": "Soda Light.sublime-theme"&lt;/code&gt;或者 &lt;code&gt;"theme": "Soda Dark.sublime-theme"&lt;/code&gt;。前面一个是亮色主题，后面一个是暗色主题。我喜欢暗色，看起来比较有黑客的调调。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://madeofcode.com/posts/29"&gt;Made of code&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个是代码高亮方案。包管理器中没有这个方案，官网似乎要翻墙才能上，国内可以在&lt;a href="https://github.com/kumarnitin/made-of-code-tmbundle/tree/master/Themes"&gt;这里&lt;/a&gt;下载。把下载到的&lt;code&gt;Made of Code.tmTheme&lt;/code&gt;放到Sublime Text 2的安装目录下的&lt;code&gt;Data\Packages\Color Scheme - Default&lt;/code&gt;文件夹，然后就可以在&lt;code&gt;Preferences&lt;/code&gt; -&amp;gt; &lt;code&gt;Color Scheme&lt;/code&gt;选择&lt;code&gt;made of code&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/erinata/SublimeMarkdownBuild"&gt;Markdown Build&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/revolunet/sublimetext-markdown-preview"&gt;MarkDown preview&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这两个是写Markdown必备的。可以在包管理器中安装。装完之后，写作Markdown时（右下角显示语法为Markdown），可以按&lt;code&gt;ctrl+b&lt;/code&gt;，直接就会生成HTML，并在浏览器中显示。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/jonschlinkert/sublime-markdown-extended"&gt;sublime-markdown-extended&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个是用来支持放在Markdown文件头部的yaml信息的代码高亮, 便于使用jekyll写Blog.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/titoBouzout/SideBarEnhancements"&gt;SideBarEnhancements&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是用来增强左边的侧边栏。左侧边栏可以在&lt;code&gt;View&lt;/code&gt; -&amp;gt; &lt;code&gt;Side Bar&lt;/code&gt; -&amp;gt; &lt;code&gt;Show Side Bar&lt;/code&gt;中打开，可以用&lt;code&gt;Project&lt;/code&gt; -&amp;gt; &lt;code&gt;Add Folder to Project...&lt;/code&gt;往侧边栏加入常用的文件夹。装完这个插件，侧边栏的右键菜单会多一些功能，挺实用的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/SublimeLinter/SublimeLinter"&gt;SublimeLinter&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是用来在写代码时做代码检查的。可以在包管理器中安装。写Python程序的话，它还会帮你查代码是否符合&lt;a href="http://www.python.org/dev/peps/pep-0008/"&gt;PEP8&lt;/a&gt;的要求。有问题有代码会出现白框，点击时底下的状态栏会提示出什么问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://bitbucket.org/StephaneBunel/pythonpep8autoformat"&gt;Python PEP8 Autoformat&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是用来按PEP8自动格式化代码的。可以在包管理器中安装。如果以前写程序不留意的话，用SublimeLinter一查，满屏都是白框框，只要装上这个包，按&lt;code&gt;ctrl+shift+r&lt;/code&gt;，代码就会按PEP8要求自动格式化了，一屏的白框几乎都消失了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/akira-cn/sublime-gbk"&gt;gbk&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;听说Sublime Text 2读GBK编码的文件会乱码，所以我早早就把这个给装上了，没见过乱码，不知管用不。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/facelessuser/BracketHighlighter"&gt;Bracket Highlighter&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是用来做括号匹配高亮的，可以在包管理器中安装。Sublime Text 2自带的括号匹配只有小小的一横线，太不显眼了，这个可以让高亮变成大大的一坨，不过我觉得它大得会盖住光标了。&lt;em&gt;(现在已经不用了)&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://wbond.net/sublime_packages/terminal"&gt;Terminal&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是用来在当前文件所在位置打开终端的。可以在包管理器中安装。对于Windows用户，安装完后，要先在&lt;code&gt;Preferences&lt;/code&gt; -&amp;gt; &lt;code&gt;Package Setting&lt;/code&gt; -&amp;gt; &lt;code&gt;Terminal&lt;/code&gt; -&amp;gt; &lt;code&gt;Settings - Default&lt;/code&gt;里，设置&lt;code&gt;"terminal": "cmd",&lt;/code&gt;。（如果喜欢用ipython的话，也可以改为ipython）之后只要按下&lt;code&gt;ctrl+shift+t&lt;/code&gt;，即可在当前文件位置打开命令行窗口。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/wbond/sublime_alignment"&gt;Alignment&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用来做代码对齐的, 最主要是做等号对齐. 我的设置把默认快捷键取消掉, 自定义为
+&lt;code&gt;{ "keys": ["alt+a"], "command": "alignment" }&lt;/code&gt;,
+按&lt;code&gt;alt+a&lt;/code&gt;进行等号对齐.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/kemayo/sublime-text-2-goto-documentation"&gt;Goto Documentation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这是用来快速查文档的, 我的设置把默认快捷键取消掉, 自定义为 &lt;code&gt;{"keys": ["f1"], "command": "goto_documentation"}&lt;/code&gt;, 按F1就可以跳转到光标位置的文件.&lt;/p&gt;
+&lt;p&gt;我把这个插件Fork出来改了几行, 添加了对 Erlang 的支持, 在&lt;a href="https://github.com/cnDenis/sublime-text-2-goto-documentation"&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/srusskih/SublimeJEDI"&gt;SublimeJEDI&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个似乎是目前ST2上最好用的Python代码补全插件, 不过它的快捷键默认设置比较坑爹, 我全部取消掉, 具体设置看我的 GIST: &lt;a href="https://gist.github.com/cnDenis/6525289"&gt;键盘设置&lt;/a&gt; 和 &lt;a href="https://gist.github.com/cnDenis/6525329"&gt;鼠标设置&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/kairyou/SublimeTmpl"&gt;SublimeTmpl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;新建文件时的模板, &lt;a href="https://gist.github.com/cnDenis/6525289"&gt;我的GIST&lt;/a&gt;里有在不同语法环境下打开不同模板文件的设置. 对于经常要在多种语言下工具的人比较方便&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/fjl/Sublime-Erlang"&gt;Sublime-Erlang&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/ostinelli/SublimErl"&gt;Sublimerl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这两个是用ST2写Erlang代码必备插件, 前一个提供了更好的语方高亮等支持, 需要禁用掉Sublime自带的Erlang插件.
+后一个提供了代码补全功能, 可恶的是原作者人为不支持Windows, 所以我自己&lt;a href="https://github.com/cnDenis/SublimErl"&gt;Fork了一份&lt;/a&gt;, 添加了对Windows的支持.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我还安装了另外的一些包，还没怎么用，这里就不详细介绍了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/welefen/KeymapManager"&gt;KeymapManager&lt;/a&gt; 插件快捷键管理，快捷键&lt;code&gt;ctrl+alt+k&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/clintberry/sublime-text-2-ini"&gt;INI file Syntax Highlighting&lt;/a&gt;  ini文件代码高亮&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/colinta/ApacheConf.tmLanguage"&gt;ApacheConf.tmLanguage&lt;/a&gt; Apache配置文件代码高亮&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/stuartherbert/sublime-phpsnippets"&gt;sublime-phpsnippets&lt;/a&gt; 更多的一些PHP代码补全&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SublimeText/jQuery"&gt;jQuery&lt;/a&gt; jQuery&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/SublimeText/Tag"&gt;Tag&lt;/a&gt; HTML标签补完、格式化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;还有一些我装了又删掉的包，不是说它们做得不好，而是我不喜欢或是在我的机上莫明运行不能，不折腾了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/dreadatour/Pep8Lint"&gt;Pep8Lint&lt;/a&gt; PEP8检查，其实用SublimeLinter检查就够了&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Kronuz/SublimeCodeIntel"&gt;SublimeCodeIntel&lt;/a&gt; 代码补全，这东西上百兆的巨大体积就不说了，问题是在我的比较大的代码文件上工作不正常，不知怎么办。反正Sublime Text 2本身也自带一点代码补完功能，这个不用也罢了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sublime Text 2 我最常用快捷键是以下几个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ctrl+p&lt;/code&gt; 跳转到任意文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+r&lt;/code&gt; 快速定位到指定类/函数/标题&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+g&lt;/code&gt; 快速跳转到某一行号，在debug时很常用&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+d&lt;/code&gt; 多处选择, 绝对的&lt;strong&gt;神器&lt;/strong&gt;!&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+b&lt;/code&gt; build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+shift+t&lt;/code&gt; 在当前位置打开终端（需安装terminal）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+shift+r&lt;/code&gt; 按PEP8格式化代码（需安装Python PEP8 Autoformat）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl+shift+p&lt;/code&gt; 基本上啥功能都在里面了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;还有 &lt;code&gt;ctrl+s&lt;/code&gt;、&lt;code&gt;ctrl+a&lt;/code&gt;、&lt;code&gt;ctrl+z&lt;/code&gt;、&lt;code&gt;ctrl+x&lt;/code&gt;、&lt;code&gt;ctrl+c&lt;/code&gt;、&lt;code&gt;ctrl+v&lt;/code&gt;这些和其他软件一样，就不用多说了&lt;/p&gt;
+&lt;p&gt;Sublime Text 2 的配置文件的修改可以参考&lt;a href="http://www.feelcss.com/sublime-text-2-settings.html"&gt;Sublime Text 2 设置文件详解&lt;/a&gt;。默认其实已经挺好，我是在&lt;code&gt;Preferences&lt;/code&gt; -&amp;gt; &lt;code&gt;Setting User&lt;/code&gt;加了这几行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="s2"&gt;&amp;quot;default_line_ending&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;unix&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;rulers&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;78&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;translate_tabs_to_spaces&amp;quot;&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;分别是用来设定行尾换行符、显示长行标尺和按tab输出空格。&lt;/p&gt;
+&lt;p&gt;另外有一个很实用的设置，在括号中使用Enter跳出括号，在&lt;code&gt;Preferences&lt;/code&gt; -&amp;gt; &lt;code&gt;Key Bindings User&lt;/code&gt;中加上&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;keys&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;enter&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;command&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;move&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;args&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nt"&gt;&amp;quot;by&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;characters&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;forward&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;context&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="p"&gt;[&lt;/span&gt;
+                &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;key&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;following_text&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;operator&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;regex_contains&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;operand&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;^[)\\]\\&amp;gt;\\&amp;#39;\\\&amp;quot;\\ %&amp;gt;\\}\\;\\,]&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;match_all&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+                &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;key&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;preceding_text&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;operator&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;not_regex_match&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;operand&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;^.*\\{$&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;match_all&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;  &lt;span class="p"&gt;},&lt;/span&gt;
+                &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;key&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;auto_complete_visible&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;operator&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;equal&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;&amp;quot;operand&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;暂时先这么多，以后再补充吧。&lt;/p&gt;
+&lt;p&gt;参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://lucifr.com/2011/08/31/sublime-text-2-tricks-and-tips/"&gt;Sublime Text 2 入门及技巧&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://timewilltell.me/node/15"&gt;配置Sublime Text使用Markdown，语法高亮,生成HTML&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.qianduan.net/essential-to-sublime-the-text-2-plugins.html"&gt;一些必不可少的Sublime Text 2插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.feelcss.com/sublime-text-2-settings.html"&gt;Sublime Text 2 设置文件详解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ruby-china.org/topics/4824"&gt;sublime 怎样跳出括号？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;更新+后记+废话(2013年9月12日):&lt;/h4&gt;
+&lt;p&gt;现在已经不用 Package Control 了, 其实 ST2 的插件多数都在 Github上, 自己上去找插件, 放到 Packages 文件夹里就好, 用 Github 进行升级和管理, 比什么都好.&lt;/p&gt;
+&lt;p&gt;这篇文章是1月份写的, 最初是放在&lt;a href="cndenis.iteye.com"&gt;我的iteye博客&lt;/a&gt;上的. ST2 从年初用到现在, 我从业余码农变成职业码农, 重装过一两回ST2, 增减了一些插件. 之前主要是用来写 Python, 现在还要兼顾 Erlang/ PHP/ JavaScript/ HTML, 还有于是又多了一些插件. 主要的加到上面去了.&lt;/p&gt;
+&lt;p&gt;ST2的插件十分丰富的. 刚开始玩的人, 尤其是装上了 Package Control 这么方便的东西之后, 可能会使劲地往里头装东西. 但用过一段时间会发现, 很多插件其实并不太用得上, 装多了反而会造成快捷键冲突/影响运行速度和稳定性的问题, 于是就会想着去精简一些插件. 这和折腾其它的东西也是很像的, 从简陋到臃肿, 再到简约.&lt;/p&gt;
+&lt;p&gt;ST2本身强大的功能配合丰富的插件, 使我可以把它变成一个大一统的IDE, 写啥代码都用它, 统一操作习惯, 很爽.&lt;/p&gt;
+&lt;p&gt;ST2的插件是十分自由的, 有点 Python 基础的都可以自己折腾着玩, 我自己都Fork过几个, 按着自己的需要改来用. 我想, 喜欢折腾和喜欢造轮子的人, 大概都会喜欢上它吧.&lt;/p&gt;</content><category term="Sublime"></category></entry><entry><title>解决Ulipad和有道词典冲突的问题</title><link href="http://blog.cndenis.com/tools/2013/01/%E8%A7%A3%E5%86%B3Ulipad%E5%92%8C%E6%9C%89%E9%81%93%E8%AF%8D%E5%85%B8%E5%86%B2%E7%AA%81%E7%9A%84%E9%97%AE%E9%A2%98.html" rel="alternate"></link><published>2013-01-14T00:00:00+08:00</published><updated>2013-01-14T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-01-14:/tools/2013/01/解决Ulipad和有道词典冲突的问题.html</id><summary type="html">&lt;p&gt;Ulipad和目前版本的有道词典有冲突，表现为先开有道词典，Ulipad就无法运行。&lt;/p&gt;
+&lt;p&gt;解决方法是：找到Ulipad安装目录下的config.ini，添加以下两行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="k"&gt;[server]&lt;/span&gt;
+    &lt;span class="na"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;50001&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;重启Ulipad，就不冲突了。&lt;/p&gt;
+&lt;p&gt;原因是Ulipad通过绑定指定端口来避免重复运行，而这个端口恰好与有道使用的端口一致。只要选一个未被其他软件使用的端口，就可以解决问题。&lt;/p&gt;
+&lt;p&gt;参考：&lt;a href="http://code.google.com/p/ulipad/issues/detail?id=306"&gt;http://code.google.com/p/ulipad/issues/detail?id=306&lt;/a&gt;， Ulipad FAQ.htm文件&lt;/p&gt;</summary><content type="html">&lt;p&gt;Ulipad和目前版本的有道词典有冲突，表现为先开有道词典，Ulipad就无法运行。&lt;/p&gt;
+&lt;p&gt;解决方法是：找到Ulipad安装目录下的config.ini，添加以下两行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="k"&gt;[server]&lt;/span&gt;
+    &lt;span class="na"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;50001&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;重启Ulipad，就不冲突了。&lt;/p&gt;
+&lt;p&gt;原因是Ulipad通过绑定指定端口来避免重复运行，而这个端口恰好与有道使用的端口一致。只要选一个未被其他软件使用的端口，就可以解决问题。&lt;/p&gt;
+&lt;p&gt;参考：&lt;a href="http://code.google.com/p/ulipad/issues/detail?id=306"&gt;http://code.google.com/p/ulipad/issues/detail?id=306&lt;/a&gt;， Ulipad FAQ.htm文件&lt;/p&gt;</content><category term="Python"></category><category term="Ulipad"></category><category term="IDE"></category></entry></feed>

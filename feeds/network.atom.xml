@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>cnDenis的笔记 - Network</title><link href="http://blog.cndenis.com/" rel="alternate"></link><link href="http://blog.cndenis.com/feeds/network.atom.xml" rel="self"></link><id>http://blog.cndenis.com/</id><updated>2013-09-17T00:00:00+08:00</updated><entry><title>去除disqus的广告</title><link href="http://blog.cndenis.com/network/2013/09/%E5%8E%BB%E9%99%A4disqus%E5%B9%BF%E5%91%8A.html" rel="alternate"></link><published>2013-09-17T00:00:00+08:00</published><updated>2013-09-17T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-09-17:/network/2013/09/去除disqus广告.html</id><summary type="html">&lt;p&gt;&lt;a href="http://jekyllbootstrap.com/"&gt;Jekyll-Bootstrap&lt;/a&gt; 自带了&lt;a href="https://disqus.com/"&gt;Disqus&lt;/a&gt;支持,
+但Disqus默认自带广告, 看起来有点不爽. Google了一下找到去除广告方法:&lt;/p&gt;
+&lt;p&gt;首先是要注册Disqus账号, 在博客的配置文件&lt;code&gt;_config.yml&lt;/code&gt;中找到&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;comments&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt;
+      &lt;span class="l l-Scalar l-Scalar-Plain"&gt;provider&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;disqus&lt;/span&gt;
+      &lt;span class="l l-Scalar l-Scalar-Plain"&gt;disqus&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt;
+        &lt;span class="l l-Scalar l-Scalar-Plain"&gt;short_name&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;YOUR_NAME&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在&lt;code&gt;short_name&lt;/code&gt;后填上自己的账号, 把原先博客中示例的评论框换成自己.&lt;/p&gt;
+&lt;p&gt;然后上Disqus网站, 按下图修改即可&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://farm8.staticflickr.com/7343/9784821822_e40b24656a_o.png" alt="去除disqus广告"&gt;&lt;/p&gt;
+&lt;p&gt;参考:&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.scottallen.com/2013/03/how-to-remove-disqus-ads-from-your-wordpress-blog/"&gt;How to Remove Disqus Ads From Your WordPress Blog&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://jekyllbootstrap.com/"&gt;Jekyll-Bootstrap&lt;/a&gt; 自带了&lt;a href="https://disqus.com/"&gt;Disqus&lt;/a&gt;支持,
+但Disqus默认自带广告, 看起来有点不爽. Google了一下找到去除广告方法:&lt;/p&gt;
+&lt;p&gt;首先是要注册Disqus账号, 在博客的配置文件&lt;code&gt;_config.yml&lt;/code&gt;中找到&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;comments&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt;
+      &lt;span class="l l-Scalar l-Scalar-Plain"&gt;provider&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;disqus&lt;/span&gt;
+      &lt;span class="l l-Scalar l-Scalar-Plain"&gt;disqus&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt;
+        &lt;span class="l l-Scalar l-Scalar-Plain"&gt;short_name&lt;/span&gt; &lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;YOUR_NAME&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在&lt;code&gt;short_name&lt;/code&gt;后填上自己的账号, 把原先博客中示例的评论框换成自己.&lt;/p&gt;
+&lt;p&gt;然后上Disqus网站, 按下图修改即可&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://farm8.staticflickr.com/7343/9784821822_e40b24656a_o.png" alt="去除disqus广告"&gt;&lt;/p&gt;
+&lt;p&gt;参考:&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.scottallen.com/2013/03/how-to-remove-disqus-ads-from-your-wordpress-blog/"&gt;How to Remove Disqus Ads From Your WordPress Blog&lt;/a&gt;&lt;/p&gt;</content><category term="Blog"></category><category term="Disqus"></category></entry></feed>

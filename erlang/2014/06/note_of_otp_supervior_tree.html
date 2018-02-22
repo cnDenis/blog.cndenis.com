@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>OTP监控树笔记 - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html">
+
+        <meta name="author" content="cnDenis" />
+        <meta name="keywords" content="Erlang,supervisor,OTP" />
+        <meta name="description" content="这是Learn You Some Erlang中的Building an Applications with Otp的笔记. 在文中, OTP被戏称为Onion Theory Platform, 监控树像洋葱一样, 一层又一层. OTP的哲学是工人-监工, 工作进程做错事就让它死掉, 监督进程再开启新的工作进程来干活. 这样做有个让人觉得很麻烦的问题: 工作进程死掉了, 它的状态怎么办? 文中进行了讨论. 状态可以分成三类: 静态的状态. 这从配置文件读回来就可以, 没什么问题. 动态但可重新获取的状态. 就是那些可以利用初始状态计算而来的东西, 重新算就行了. 动态且不可重新获取的状态. 比如说用户的输入, 外部事件等等. 如果工作进程只有前两类状态, 用监工的方法很容易的处理, 死了重启, 恢复状态就可以了. 第三类的状态需要放到不允许出错的地方(error kernel), 其实就是用try...catch包起来. 作者示范了一个进程池的设计. 所谓进程池, 就是可以容纳一定数量的进程同时运行, 当同时运行的进程数达到限制时, 把工作放入队列进行排队, 等待有空位时再开始新的任务. 做这么一个进程池, 需要有一个服务进程来计数同时运行的工作进程数 …" />
+
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="OTP监控树笔记"/>
+        <meta property="og:url" content="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html"/>
+        <meta property="og:description" content="这是Learn You Some Erlang中的Building an Applications with Otp的笔记. 在文中, OTP被戏称为Onion Theory Platform, 监控树像洋葱一样, 一层又一层. OTP的哲学是工人-监工, 工作进程做错事就让它死掉, 监督进程再开启新的工作进程来干活. 这样做有个让人觉得很麻烦的问题: 工作进程死掉了, 它的状态怎么办? 文中进行了讨论. 状态可以分成三类: 静态的状态. 这从配置文件读回来就可以, 没什么问题. 动态但可重新获取的状态. 就是那些可以利用初始状态计算而来的东西, 重新算就行了. 动态且不可重新获取的状态. 比如说用户的输入, 外部事件等等. 如果工作进程只有前两类状态, 用监工的方法很容易的处理, 死了重启, 恢复状态就可以了. 第三类的状态需要放到不允许出错的地方(error kernel), 其实就是用try...catch包起来. 作者示范了一个进程池的设计. 所谓进程池, 就是可以容纳一定数量的进程同时运行, 当同时运行的进程数达到限制时, 把工作放入队列进行排队, 等待有空位时再开始新的任务. 做这么一个进程池, 需要有一个服务进程来计数同时运行的工作进程数 …"/>
+        <meta property="article:published_time" content="2014-06-05" />
+            <meta property="article:section" content="Erlang" />
+            <meta property="article:tag" content="Erlang" />
+            <meta property="article:tag" content="supervisor" />
+            <meta property="article:tag" content="OTP" />
+            <meta property="article:author" content="cnDenis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/erlang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Erlang ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html"
+                       rel="bookmark"
+                       title="Permalink to OTP监控树笔记">
+                        OTP监控树笔记
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-06-05T00:00:00+08:00"> 2014年06月05日 星期四</time>
+    </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="http://blog.cndenis.com/erlang/index.html">Erlang</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+        /
+	<a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+        /
+	<a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html"
+                       rel="bookmark"
+                       title="Permalink to OTP监控树笔记">
+                        http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html
+                    </a>
+                </p>
+                <p>这是Learn You Some Erlang中的<a href="http://learnyousomeerlang.com/building-applications-with-otp">Building an Applications with Otp</a>的笔记.</p>
+<p>在文中, OTP被戏称为Onion Theory Platform, 监控树像洋葱一样, 一层又一层.</p>
+<p>OTP的哲学是工人-监工, 工作进程做错事就让它死掉, 监督进程再开启新的工作进程来干活.
+这样做有个让人觉得很麻烦的问题: 工作进程死掉了, 它的状态怎么办? 文中进行了讨论.
+状态可以分成三类:</p>
+<ul>
+<li>
+<p>静态的状态. 这从配置文件读回来就可以, 没什么问题.</p>
+</li>
+<li>
+<p>动态但可重新获取的状态. 就是那些可以利用初始状态计算而来的东西, 重新算就行了.</p>
+</li>
+<li>
+<p>动态且不可重新获取的状态. 比如说用户的输入, 外部事件等等.</p>
+</li>
+</ul>
+<p>如果工作进程只有前两类状态, 用监工的方法很容易的处理, 死了重启, 恢复状态就可以了.</p>
+<p>第三类的状态需要放到不允许出错的地方(error kernel), 其实就是用try...catch包起来.</p>
+<p>作者示范了一个进程池的设计.</p>
+<p>所谓进程池, 就是可以容纳一定数量的进程同时运行, 当同时运行的进程数达到限制时,
+把工作放入队列进行排队, 等待有空位时再开始新的任务.</p>
+<p>做这么一个进程池, 需要有一个服务进程来计数同时运行的工作进程数,
+以及保存准备等待运行的队列.</p>
+<p>那用这个服务进程来监控工作进程好不好呢? 可以, 但缺点是服务进程任务太重,
+而且和现有的监督者进程功能重复.</p>
+<p>一个比较好的方案是, 用一个监督进程<code>worker_sup</code>监视所有工作进程,
+这个监督进程和进程池服务进程一起放到上一层的监督进程<code>ppool_sup</code>下, 如图:</p>
+<p><img src=http://learnyousomeerlang.com/static/img/ppool_sup.png></p>
+<p>如果让所有进程池都放在同一个<code>ppool_sup</code>下, 当一个进程池频繁出错的话,
+这个<code>ppool_sup</code>会被关掉, 所有进程池都会被关掉, 这是很不好的事情.
+所以要为每个进程池单独开一个监控进程. 变成这样:</p>
+<p><img src=http://learnyousomeerlang.com/static/img/ppool_supersup.png></p>
+<p>底下的具体实现部分就不记了.</p>
+<p>实现这么看起来并不太复杂的功能, 从顶层到worker, 总共四层, 不愧是洋葱理论平台.</p>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html"
+                       rel="bookmark"
+                       title="Permalink to OTP监控树笔记">
+                        http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html
+                    </a>
+                </p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (6)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2012/12/index.html"><i class="fa fa-calendar fa-lg"></i>十二月 2012 (5)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

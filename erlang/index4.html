@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Erlang - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+    <meta name="author" content="cnDenis" />
+    <meta name="keywords" content="Erlang" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="cnDenis的笔记"/>
+        <meta property="og:url" content="http://blog.cndenis.com"/>
+        <meta property="og:description" content="cnDenis的笔记"/>
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/erlang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Erlang ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <article>
+                <h2><a href="http://blog.cndenis.com/erlang/2013/03/初识Erlang_Hello_World.html">初识Erlang，Hello World (1)</a></h2>
+                <div class="summary"><p>这两天开始玩Erlang，咱们从Hello World开始吧。</p>
+<p>先是要到官网<a href="http://www.erlang.org/download.html">http://www.erlang.org/download.html</a>下载安装包，安装上，设置好系
+PATH，然后打开命令行，输入<code>erl</code>，如果看到类似于</p>
+<div class="highlight"><pre><span></span>Eshell V5.10.1  (abort with ^G)
+1&gt;
+</pre></div>
+
+
+<p>的话，就表示Erlang安装成功。这东西叫做Erlang的Shell。</p>
+<p>然后就是最经典的Hello World：</p>
+<p>随便用一个文本编辑器输入：</p>
+<div class="highlight"><pre><span></span>    <span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">helloworld</span><span class="p">).</span>
+    <span class="o">-</span><span class="n">export</span><span class="p">([</span><span class="n">hw</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+
+    <span class="n">hw</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Hello World! </span><span class="si">~n</span><span class="s">&quot;</span><span class="p">).</span>
+</pre></div>
+
+
+<p>保存为helloworld.erl，然后在命令行下进入该文件所在目录，进入Erlang Shell，输
+入 …</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2013/03/初识Erlang_Hello_World.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.cndenis.com/erlang/2013/03/初识Erlang_Hello_World-2.html">初识Erlang，Hello World (2)</a></h2>
+                <div class="summary"><p>昨天费了老大劲终于把Hello World打出来了，今天我们继续。</p>
+<h2>说N遍Hello World，递归的使用</h2>
+<p>Hello World说一遍怎么够呢，说N遍吧。代码如下：</p>
+<div class="highlight"><pre><span></span>    <span class="o">-</span><span class="n">module</span><span class="p">(</span><span class="n">helloworld</span><span class="p">).</span>
+    <span class="o">-</span><span class="n">export</span><span class="p">([</span><span class="n">hw3</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+    <span class="c">% 打印N遍Hello world</span>
+    <span class="n">hw3</span><span class="p">(</span><span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+        <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Hello World </span><span class="si">~n</span><span class="s">&quot;</span><span class="p">),</span>
+        <span class="n">hw3</span><span class="p">(</span><span class="nv">N</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">hw3</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">.</span>
+</pre></div>
+
+
+<p>这有什么好坑的呢：</p>
+<div class="highlight"><pre><span></span>    <span class="n">hw3</span><span class="p">(</span><span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+</pre></div>
+
+
+<p>when后面是一个断言(guard)，仅在它为true时函数会被执行。</p>
+<p>断言所能使用的语句是受限的，不能用自定义的函数。</p>
+<div class="highlight"><pre><span></span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;Hello World </span><span class="si">~n</span><span class="s">&quot;</span><span class="p">),</span>
+    <span class="n">hw3 …</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2013/03/初识Erlang_Hello_World-2.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
+        <ul class="pagination">
+                <li class="prev"><a href="http://blog.cndenis.com/erlang/index3.html">&laquo;</a>
+                </li>
+                    <li class=""><a
+                            href="http://blog.cndenis.com/erlang/index.html">1</a></li>
+                    <li class=""><a
+                            href="http://blog.cndenis.com/erlang/index2.html">2</a></li>
+                    <li class=""><a
+                            href="http://blog.cndenis.com/erlang/index3.html">3</a></li>
+                    <li class="active"><a
+                            href="http://blog.cndenis.com/erlang/index4.html">4</a></li>
+                <li class="next disabled"><a href="#">&raquo;</a></li>
+        </ul>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (5)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (2)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

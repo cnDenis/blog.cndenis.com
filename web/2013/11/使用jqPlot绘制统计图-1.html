@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>使用jqPlot绘制统计图-1 - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html">
+
+        <meta name="author" content="cnDenis" />
+        <meta name="keywords" content="JavaScript,jqPlot" />
+        <meta name="description" content="要在网页上显示统计图, 可以在服务器生成图片后发给浏览器, 也可以把数据发给浏览器, 用JavaScript画. jqPlot是后者的一种, 它是jQuery的一个插件, 是完全运行于客户端的绘图包. 下面简介一下它的使用. 引用库文件 jqPlot 是 jQuery 插件, 需要在网页上引用 jQuery 和 jqPlot 包中的以下的几个文件. 要注意这几个只是最基本的, 要做出各种图形效果的话, 需要另外再引用其他的一些文件, 后面会分别介绍. &lt;!--[if lt IE 9]&gt;&lt;script language=&#34;javascript&#34; type=&#34;text/javascript&#34; src=&#34;excanvas.js&#34;&gt;&lt;/script&gt;&lt;![endif]--&gt; &lt;script language=&#34;javascript&#34; type=&#34;text/javascript&#34; src=&#34;jquery.min.js&#34;&gt;&lt;/script&gt; &lt;script …" />
+
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="使用jqPlot绘制统计图-1"/>
+        <meta property="og:url" content="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html"/>
+        <meta property="og:description" content="要在网页上显示统计图, 可以在服务器生成图片后发给浏览器, 也可以把数据发给浏览器, 用JavaScript画. jqPlot是后者的一种, 它是jQuery的一个插件, 是完全运行于客户端的绘图包. 下面简介一下它的使用. 引用库文件 jqPlot 是 jQuery 插件, 需要在网页上引用 jQuery 和 jqPlot 包中的以下的几个文件. 要注意这几个只是最基本的, 要做出各种图形效果的话, 需要另外再引用其他的一些文件, 后面会分别介绍. &lt;!--[if lt IE 9]&gt;&lt;script language=&#34;javascript&#34; type=&#34;text/javascript&#34; src=&#34;excanvas.js&#34;&gt;&lt;/script&gt;&lt;![endif]--&gt; &lt;script language=&#34;javascript&#34; type=&#34;text/javascript&#34; src=&#34;jquery.min.js&#34;&gt;&lt;/script&gt; &lt;script …"/>
+        <meta property="article:published_time" content="2013-11-03" />
+            <meta property="article:section" content="Web" />
+            <meta property="article:tag" content="JavaScript" />
+            <meta property="article:tag" content="jqPlot" />
+            <meta property="article:author" content="cnDenis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/web.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Web ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html"
+                       rel="bookmark"
+                       title="Permalink to 使用jqPlot绘制统计图-1">
+                        使用jqPlot绘制统计图-1
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-11-03T00:00:00+08:00"> 2013年11月03日 星期日</time>
+    </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="http://blog.cndenis.com/web/index.html">Web</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+        /
+	<a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html"
+                       rel="bookmark"
+                       title="Permalink to 使用jqPlot绘制统计图-1">
+                        http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html
+                    </a>
+                </p>
+                <p>要在网页上显示统计图, 可以在服务器生成图片后发给浏览器, 也可以把数据发给浏览器,
+用JavaScript画. <a href="http://www.jqplot.com/">jqPlot</a>是后者的一种, 它是jQuery的一个插件,
+是完全运行于客户端的绘图包. 下面简介一下它的使用.</p>
+<h3>引用库文件</h3>
+<p>jqPlot 是 jQuery 插件, 需要在网页上引用 jQuery 和 jqPlot 包中的以下的几个文件.</p>
+<p>要注意这几个只是最基本的, 要做出各种图形效果的话, 需要另外再引用其他的一些文件,
+后面会分别介绍.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!--[if lt IE 9]&gt;&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;excanvas.js&quot;&gt;&lt;/script&gt;&lt;![endif]--&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jquery.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jquery.jqplot.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;jquery.jqplot.css&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+
+
+<h3>放置图片的容器</h3>
+<p>把以下容器放在需要显示图片的地方, 注意必需要预先设定好大小.</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;chartdiv&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;height:250px;width:500px; &quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<h3>画图</h3>
+<p>以下是做一个最简单的图的例子:</p>
+<div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">.</span><span class="nx">jqplot</span><span class="p">(</span><span class="s1">&#39;chartdiv&#39;</span><span class="p">,</span>  <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mf">5.12</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mf">13.1</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mf">33.6</span><span class="p">],[</span><span class="mi">9</span><span class="p">,</span><span class="mf">85.9</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mf">219.9</span><span class="p">]]]);</span>
+</pre></div>
+
+
+<p>画出来的图是这样的:</p>
+<div id="chartdiv" style="height:250px;width:500px; "></div>
+
+<p><code>$.jqplot</code> 是用来作图的, 它的形式是</p>
+<div class="highlight"><pre><span></span>$.jqplot(容器ID, 数据, 参数)
+</pre></div>
+
+
+<p>要注意其中的容器ID并不是 jQuery 的选择器, 不带<code>#</code>号.</p>
+<p>数据是以一个二元组为一个点, 如<code>[1, 2]</code>, 以若干个点的列表作为一个系列
+(也就是一条曲线), 数据可以包含多个系列, 于是你就会看到是三层的列表(<code>[[[</code>)</p>
+<p>参数是一个<a href="http://www.json.org/json-zh.html">JSON对像</a>,
+jqPlot的所有应用技巧就都装在里面了.</p>
+<p>下面是一个具有多条曲线, 并且设定标题的图:</p>
+<div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">.</span><span class="nx">jqplot</span><span class="p">(</span><span class="s1">&#39;chartdiv2&#39;</span><span class="p">,[</span>
+    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">15</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">16</span><span class="p">]],</span>
+    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">]],</span>
+    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">]]</span>
+<span class="p">],</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span><span class="s1">&#39;这是三条曲线&#39;</span><span class="p">});</span>
+</pre></div>
+
+
+<div id="chartdiv2" style="height:250px;width:500px; "></div>
+
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="http://www.jqplot.com/deploy/dist/excanvas.js"></script><![endif]-->
+
+<script language="javascript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="//cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.js"></script>
+
+<p><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.css" /></p>
+<script>
+$(
+function(){
+    $.jqplot('chartdiv',  [[[1, 2],[3,5.12],[5,13.1],[7,33.6],[9,85.9],[11,219.9]]]);
+    $.jqplot('chartdiv2',[
+        [[1, 2],[2,4],[3,7],[4,15],[5,20],[6,16]],
+        [[1, 3],[2,6],[3,9],[4,12],[5,5],[6,2]],
+        [[1, 2],[2,4],[3,2],[4,7],[5,3],[6,5]]
+    ],  {title:'这是三条曲线'});
+})
+</script>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html"
+                       rel="bookmark"
+                       title="Permalink to 使用jqPlot绘制统计图-1">
+                        http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html
+                    </a>
+                </p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (6)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2012/12/index.html"><i class="fa fa-calendar fa-lg"></i>十二月 2012 (5)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

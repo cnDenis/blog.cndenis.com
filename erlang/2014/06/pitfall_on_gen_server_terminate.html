@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>【Erlang】gen_server terminate的坑 - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html">
+
+        <meta name="author" content="cnDenis" />
+        <meta name="keywords" content="Erlang,gen_server" />
+        <meta name="description" content="gen_server进程结束时, 会调用terminate函数, 但这并不是在任何情况下都成立的. 当gen_server进程主动关闭时, 也就是在回调函数 handle_xxx 中返回 {stop...} 的时候, terminate 是必然被调用的. 当gen_server进程处于监控树中, 被其监控进程关闭时, 情况就不一样了. 只有在这个进程设置了捕获退出信号, 即 process_flag(trap_exit, true), 并且其开启选项中设置了关闭超时时间, 而不是 brutal_kill, terminate才会被执行. 换句话说, 不捕获退出信号的gen_server被其监控进程关闭时, 会直接死掉, 不执行terminate函数! 看一下 gen_server 的源代码关于消息处理的部分: decode_msg(Msg, Parent, Name, State, Mod, Time, Debug, Hib) -&gt; case Msg of {system, From, Req …" />
+
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="【Erlang】gen_server terminate的坑"/>
+        <meta property="og:url" content="http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html"/>
+        <meta property="og:description" content="gen_server进程结束时, 会调用terminate函数, 但这并不是在任何情况下都成立的. 当gen_server进程主动关闭时, 也就是在回调函数 handle_xxx 中返回 {stop...} 的时候, terminate 是必然被调用的. 当gen_server进程处于监控树中, 被其监控进程关闭时, 情况就不一样了. 只有在这个进程设置了捕获退出信号, 即 process_flag(trap_exit, true), 并且其开启选项中设置了关闭超时时间, 而不是 brutal_kill, terminate才会被执行. 换句话说, 不捕获退出信号的gen_server被其监控进程关闭时, 会直接死掉, 不执行terminate函数! 看一下 gen_server 的源代码关于消息处理的部分: decode_msg(Msg, Parent, Name, State, Mod, Time, Debug, Hib) -&gt; case Msg of {system, From, Req …"/>
+        <meta property="article:published_time" content="2014-06-07" />
+            <meta property="article:section" content="Erlang" />
+            <meta property="article:tag" content="Erlang" />
+            <meta property="article:tag" content="gen_server" />
+            <meta property="article:author" content="cnDenis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/erlang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Erlang ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html"
+                       rel="bookmark"
+                       title="Permalink to 【Erlang】gen_server terminate的坑">
+                        【Erlang】gen_server terminate的坑
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-06-07T00:00:00+08:00"> 2014年06月07日 星期六</time>
+    </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="http://blog.cndenis.com/erlang/index.html">Erlang</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+        /
+	<a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html"
+                       rel="bookmark"
+                       title="Permalink to 【Erlang】gen_server terminate的坑">
+                        http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html
+                    </a>
+                </p>
+                <p>gen_server进程结束时, 会调用<code>terminate</code>函数, 但这并不是在任何情况下都成立的.</p>
+<p>当gen_server进程主动关闭时, 也就是在回调函数 <code>handle_xxx</code> 中返回 <code>{stop...}</code>
+的时候, <code>terminate</code> 是必然被调用的.</p>
+<p>当gen_server进程处于监控树中, 被其监控进程关闭时, 情况就不一样了.
+只有在这个进程设置了捕获退出信号, 即 <code>process_flag(trap_exit, true)</code>,
+并且其开启选项中设置了关闭超时时间, 而不是 <code>brutal_kill</code>, <code>terminate</code>才会被执行.</p>
+<p>换句话说, <strong>不捕获退出信号的gen_server被其监控进程关闭时, 会直接死掉,
+不执行<code>terminate</code>函数!</strong></p>
+<p>看一下 <code>gen_server</code> 的源代码关于消息处理的部分:</p>
+<div class="highlight"><pre><span></span><span class="nf">decode_msg</span><span class="p">(</span><span class="nv">Msg</span><span class="p">,</span> <span class="nv">Parent</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="nv">Mod</span><span class="p">,</span> <span class="nv">Time</span><span class="p">,</span> <span class="nv">Debug</span><span class="p">,</span> <span class="nv">Hib</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="nv">Msg</span> <span class="k">of</span>
+    <span class="p">{</span><span class="n">system</span><span class="p">,</span> <span class="nv">From</span><span class="p">,</span> <span class="nv">Req</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="nn">sys</span><span class="p">:</span><span class="nf">handle_system_msg</span><span class="p">(</span><span class="nv">Req</span><span class="p">,</span> <span class="nv">From</span><span class="p">,</span> <span class="nv">Parent</span><span class="p">,</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nv">Debug</span><span class="p">,</span>
+                  <span class="p">[</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="nv">Mod</span><span class="p">,</span> <span class="nv">Time</span><span class="p">],</span> <span class="nv">Hib</span><span class="p">);</span>
+    <span class="p">{</span><span class="n">&#39;EXIT&#39;</span><span class="p">,</span> <span class="nv">Parent</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">terminate</span><span class="p">(</span><span class="nv">Reason</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">,</span> <span class="nv">Mod</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="nv">Debug</span><span class="p">);</span>
+    <span class="p">_</span><span class="nv">Msg</span> <span class="k">when</span> <span class="nv">Debug</span> <span class="o">=:=</span> <span class="p">[]</span> <span class="o">-&gt;</span>
+        <span class="n">handle_msg</span><span class="p">(</span><span class="nv">Msg</span><span class="p">,</span> <span class="nv">Parent</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="nv">Mod</span><span class="p">);</span>
+    <span class="p">_</span><span class="nv">Msg</span> <span class="o">-&gt;</span>
+        <span class="nv">Debug1</span> <span class="o">=</span> <span class="nn">sys</span><span class="p">:</span><span class="nf">handle_debug</span><span class="p">(</span><span class="nv">Debug</span><span class="p">,</span> <span class="k">fun</span> <span class="n">print_event</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span>
+                      <span class="nv">Name</span><span class="p">,</span> <span class="p">{</span><span class="n">in</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">}),</span>
+        <span class="n">handle_msg</span><span class="p">(</span><span class="nv">Msg</span><span class="p">,</span> <span class="nv">Parent</span><span class="p">,</span> <span class="nv">Name</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="nv">Mod</span><span class="p">,</span> <span class="nv">Debug1</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">.</span>
+</pre></div>
+
+
+<p>可以看出, 当它的父进程执行 <code>erlang:exit(Pid, Reason)</code>时,
+也就是给它发送 <code>{'EXIT', Parent, Reason}</code>,
+gen_server会调用 <code>terminate</code> 并结束自己.
+gen_server源代码中并没有设置 <code>trap_exit</code>, 也就是默认是不捕获退出信号的,
+如果用户不自己设置, 进程一旦接收到 <code>{'EXIT', Parent, Reason}</code> 就会立即退出,
+没有机会运行 <code>terminate</code>.</p>
+<p>从这段代码也可以看出, 设置 <code>trap_exit</code> 后, 用户并不需要而且没办法在 <code>handle_info</code>
+里处理来自监控树的父进程的退出信号, gen_server在这个消息在到达 <code>handle_info</code>
+之前就已经处理了, 直接调用了 <code>terminate</code>.</p>
+<p>因此, 要确保监控树中的gen_server在进程结束时执行 <code>terminate</code>,
+需要设置 <code>process_flag(trap_exit, true)</code>,
+并且要在启动参数中, 设置足够长的结束等待时间.</p>
+<p>参考:</p>
+<ul>
+<li>
+<p><a href="http://mazenharake.wordpress.com/2010/10/31/9-erlang-pitfalls-you-should-know-about/">9 Erlang pitfalls you should know about</a>, 其中第7条讲的就是这个问题, 有试验代码.</p>
+</li>
+<li>
+<p><a href="http://www.qingliangcn.com/2010/08/erlang-otp%E4%B9%8Bterminate-%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90/">Erlang OTP之terminate 深入分析</a>, 庆亮写的分析, 也有试验代码.
+其中对于 <code>simple_one_for_one</code> 的描述不尽正确, 在目前的R16B中,
+<code>simple_one_for_one</code> 的子进程信息是存在 <code>#state.dynamics</code> 中的,
+只要处理时间足够, 关闭监控树是会正常关闭所有子进程的.</p>
+</li>
+</ul>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html"
+                       rel="bookmark"
+                       title="Permalink to 【Erlang】gen_server terminate的坑">
+                        http://blog.cndenis.com/erlang/2014/06/pitfall_on_gen_server_terminate.html
+                    </a>
+                </p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (6)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2012/12/index.html"><i class="fa fa-calendar fa-lg"></i>十二月 2012 (5)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

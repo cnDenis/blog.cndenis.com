@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>cnDenis的笔记 - Web</title><link href="http://blog.cndenis.com/" rel="alternate"></link><link href="http://blog.cndenis.com/feeds/web.atom.xml" rel="self"></link><id>http://blog.cndenis.com/</id><updated>2014-06-02T00:00:00+08:00</updated><entry><title>Apache启动时报443端口被占用的处理方法</title><link href="http://blog.cndenis.com/web/2014/06/cannot_bind_443_on_apache_startup.html" rel="alternate"></link><published>2014-06-02T00:00:00+08:00</published><updated>2014-06-02T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2014-06-02:/web/2014/06/cannot_bind_443_on_apache_startup.html</id><summary type="html">&lt;p&gt;下午在自己机上装了Apache2.4, 启动时说443端口被占了:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(OS 10048)通常每个套接字地址(协议/网络地址/端口)只允许使用一次。  : AH00072: mak
+e_sock: could not bind to address [::]:443
+(OS 10048)通常每个套接字地址(协议/网络地址/端口)只允许使用一次。  : AH00072: mak
+e_sock: could not bind to address 0.0.0.0:443
+AH00451: no listening sockets available, shutting down
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;杀掉占用443的那个程序当然可以, 另一种方法是把443改成另外的不常用端口:
+如&lt;a href="http://congjl2002.iteye.com/blog/1497640"&gt;这篇文章 …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;下午在自己机上装了Apache2.4, 启动时说443端口被占了:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;(OS 10048)通常每个套接字地址(协议/网络地址/端口)只允许使用一次。  : AH00072: mak
+e_sock: could not bind to address [::]:443
+(OS 10048)通常每个套接字地址(协议/网络地址/端口)只允许使用一次。  : AH00072: mak
+e_sock: could not bind to address 0.0.0.0:443
+AH00451: no listening sockets available, shutting down
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;杀掉占用443的那个程序当然可以, 另一种方法是把443改成另外的不常用端口:
+如&lt;a href="http://congjl2002.iteye.com/blog/1497640"&gt;这篇文章&lt;/a&gt;介绍的,
+还有一种方法是直接关闭Apache的SSL模块, 反正在我自己的机上用不着.&lt;/p&gt;
+&lt;p&gt;打开&lt;code&gt;httpd.conf&lt;/code&gt;, 找到加载ssl_module的那一行, 加#号注释掉就好了:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# LoadModule ssl_module modules/mod_ssl.so
+&lt;/pre&gt;&lt;/div&gt;</content><category term="Apache"></category></entry><entry><title>使用jqPlot绘制统计图-1</title><link href="http://blog.cndenis.com/web/2013/11/%E4%BD%BF%E7%94%A8jqPlot%E7%BB%98%E5%88%B6%E7%BB%9F%E8%AE%A1%E5%9B%BE-1.html" rel="alternate"></link><published>2013-11-03T00:00:00+08:00</published><updated>2013-11-03T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-11-03:/web/2013/11/使用jqPlot绘制统计图-1.html</id><summary type="html">&lt;p&gt;要在网页上显示统计图, 可以在服务器生成图片后发给浏览器, 也可以把数据发给浏览器,
+用JavaScript画. &lt;a href="http://www.jqplot.com/"&gt;jqPlot&lt;/a&gt;是后者的一种, 它是jQuery的一个插件,
+是完全运行于客户端的绘图包. 下面简介一下它的使用.&lt;/p&gt;
+&lt;h3&gt;引用库文件&lt;/h3&gt;
+&lt;p&gt;jqPlot 是 jQuery 插件, 需要在网页上引用 jQuery 和 jqPlot 包中的以下的几个文件.&lt;/p&gt;
+&lt;p&gt;要注意这几个只是最基本的, 要做出各种图形效果的话, 需要另外再引用其他的一些文件,
+后面会分别介绍.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;&amp;lt;!--[if lt IE 9]&amp;gt;&amp;lt;script language=&amp;quot;javascript&amp;quot; type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;excanvas.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;![endif]--&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;language&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;jquery.min.js&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;要在网页上显示统计图, 可以在服务器生成图片后发给浏览器, 也可以把数据发给浏览器,
+用JavaScript画. &lt;a href="http://www.jqplot.com/"&gt;jqPlot&lt;/a&gt;是后者的一种, 它是jQuery的一个插件,
+是完全运行于客户端的绘图包. 下面简介一下它的使用.&lt;/p&gt;
+&lt;h3&gt;引用库文件&lt;/h3&gt;
+&lt;p&gt;jqPlot 是 jQuery 插件, 需要在网页上引用 jQuery 和 jqPlot 包中的以下的几个文件.&lt;/p&gt;
+&lt;p&gt;要注意这几个只是最基本的, 要做出各种图形效果的话, 需要另外再引用其他的一些文件,
+后面会分别介绍.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;&amp;lt;!--[if lt IE 9]&amp;gt;&amp;lt;script language=&amp;quot;javascript&amp;quot; type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;excanvas.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;![endif]--&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;language&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;jquery.min.js&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;language&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;jquery.jqplot.min.js&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;jquery.jqplot.css&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;放置图片的容器&lt;/h3&gt;
+&lt;p&gt;把以下容器放在需要显示图片的地方, 注意必需要预先设定好大小.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt; &lt;span class="na"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;chartdiv&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;style&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;height:250px;width:500px; &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;画图&lt;/h3&gt;
+&lt;p&gt;以下是做一个最简单的图的例子:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;jqplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chartdiv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="p"&gt;[[[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;5.12&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;13.1&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;33.6&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;85.9&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;219.9&lt;/span&gt;&lt;span class="p"&gt;]]]);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;画出来的图是这样的:&lt;/p&gt;
+&lt;div id="chartdiv" style="height:250px;width:500px; "&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;$.jqplot&lt;/code&gt; 是用来作图的, 它的形式是&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$.jqplot(容器ID, 数据, 参数)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;要注意其中的容器ID并不是 jQuery 的选择器, 不带&lt;code&gt;#&lt;/code&gt;号.&lt;/p&gt;
+&lt;p&gt;数据是以一个二元组为一个点, 如&lt;code&gt;[1, 2]&lt;/code&gt;, 以若干个点的列表作为一个系列
+(也就是一条曲线), 数据可以包含多个系列, 于是你就会看到是三层的列表(&lt;code&gt;[[[&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;参数是一个&lt;a href="http://www.json.org/json-zh.html"&gt;JSON对像&lt;/a&gt;,
+jqPlot的所有应用技巧就都装在里面了.&lt;/p&gt;
+&lt;p&gt;下面是一个具有多条曲线, 并且设定标题的图:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;jqplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;chartdiv2&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,[&lt;/span&gt;
+    &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;]],&lt;/span&gt;
+    &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]],&lt;/span&gt;
+    &lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;],[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt;
+&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;这是三条曲线&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div id="chartdiv2" style="height:250px;width:500px; "&gt;&lt;/div&gt;
+
+&lt;!--[if lt IE 9]&gt;&lt;script language="javascript" type="text/javascript" src="http://www.jqplot.com/deploy/dist/excanvas.js"&gt;&lt;/script&gt;&lt;![endif]--&gt;
+
+&lt;script language="javascript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+
+&lt;script language="javascript" type="text/javascript" src="//cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jqplot/1.0.8/jquery.jqplot.css" /&gt;&lt;/p&gt;
+&lt;script&gt;
+$(
+function(){
+    $.jqplot('chartdiv',  [[[1, 2],[3,5.12],[5,13.1],[7,33.6],[9,85.9],[11,219.9]]]);
+    $.jqplot('chartdiv2',[
+        [[1, 2],[2,4],[3,7],[4,15],[5,20],[6,16]],
+        [[1, 3],[2,6],[3,9],[4,12],[5,5],[6,2]],
+        [[1, 2],[2,4],[3,2],[4,7],[5,3],[6,5]]
+    ],  {title:'这是三条曲线'});
+})
+&lt;/script&gt;</content><category term="JavaScript"></category><category term="jqPlot"></category></entry><entry><title>在Jekyll的博客中实现语法高亮</title><link href="http://blog.cndenis.com/web/2013/11/%E5%9C%A8Jekyll%E7%9A%84%E5%8D%9A%E5%AE%A2%E4%B8%AD%E5%AE%9E%E7%8E%B0%E8%AF%AD%E6%B3%95%E9%AB%98%E4%BA%AE.html" rel="alternate"></link><published>2013-11-03T00:00:00+08:00</published><updated>2013-11-03T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-11-03:/web/2013/11/在Jekyll的博客中实现语法高亮.html</id><summary type="html">&lt;p&gt;在Jekyll的博客中实现语法高亮方法如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在配置文件 &lt;code&gt;_config.yml&lt;/code&gt; 启用 pygments, 并使用redcarpet做为渲染引擎.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pygments&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;true&lt;/span&gt;
+    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;markdown&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;redcarpet&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;使用以下格式把代码括起来&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;
+    ```python
+    print("hello world")
+    ```
+&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在页面上添加语法高亮的CSS文件, 像这样:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/css/pygments.css&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;说明:&lt;/p&gt;
+&lt;p&gt;使用 redcarpet 是为了支持所谓的 &lt;a href="https://help.github.com/articles/github-flavored-markdown"&gt;Github风格的Markdown语法&lt;/a&gt;,
+也就是像上面的那样三撇号加语言类型的方式进行代码引用,
+其他几个渲染引擎要用&lt;a href="http://jekyllrb.com/docs/templates/#code_snippet_highlighting"&gt;这种比较别扭的方式&lt;/a&gt;来把代码括起来, 我觉得这么写不好看.&lt;/p&gt;
+&lt;p&gt;语法高亮的定义文件可以在 &lt;a href="https://github.com/richleland/pygments-css/tree/master"&gt;这里&lt;/a&gt;下载, 对应的效果可以在 &lt;a href="http://pygments.org/demo/"&gt;pygments的官网的Demo&lt;/a&gt;里试看.&lt;/p&gt;
+&lt;p&gt;一直在纠结我的 Blog 中的代码为啥没有语法高亮,
+看着&lt;a href="http://jekyllrb.com/"&gt;Jekyll官网&lt;/a&gt;中漂亮的代码就更纠结了, 今天终于解决了,
+刚把十几篇文章的代码都加上语言类型, 呼 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;在Jekyll的博客中实现语法高亮方法如下:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在配置文件 &lt;code&gt;_config.yml&lt;/code&gt; 启用 pygments, 并使用redcarpet做为渲染引擎.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pygments&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;true&lt;/span&gt;
+    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;markdown&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;redcarpet&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;使用以下格式把代码括起来&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;
+    ```python
+    print("hello world")
+    ```
+&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在页面上添加语法高亮的CSS文件, 像这样:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/css/pygments.css&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;说明:&lt;/p&gt;
+&lt;p&gt;使用 redcarpet 是为了支持所谓的 &lt;a href="https://help.github.com/articles/github-flavored-markdown"&gt;Github风格的Markdown语法&lt;/a&gt;,
+也就是像上面的那样三撇号加语言类型的方式进行代码引用,
+其他几个渲染引擎要用&lt;a href="http://jekyllrb.com/docs/templates/#code_snippet_highlighting"&gt;这种比较别扭的方式&lt;/a&gt;来把代码括起来, 我觉得这么写不好看.&lt;/p&gt;
+&lt;p&gt;语法高亮的定义文件可以在 &lt;a href="https://github.com/richleland/pygments-css/tree/master"&gt;这里&lt;/a&gt;下载, 对应的效果可以在 &lt;a href="http://pygments.org/demo/"&gt;pygments的官网的Demo&lt;/a&gt;里试看.&lt;/p&gt;
+&lt;p&gt;一直在纠结我的 Blog 中的代码为啥没有语法高亮,
+看着&lt;a href="http://jekyllrb.com/"&gt;Jekyll官网&lt;/a&gt;中漂亮的代码就更纠结了, 今天终于解决了,
+刚把十几篇文章的代码都加上语言类型, 呼...&lt;/p&gt;
+&lt;p&gt;本文参考了:
+&lt;a href="http://alexpeattie.com/blog/github-style-syntax-highlighting-with-pygments/"&gt;GITHUB-STYLE SYNTAX HIGHLIGHTING WITH PYGMENTS&lt;/a&gt;&lt;/p&gt;</content><category term="Jekyll"></category><category term="Blog"></category></entry><entry><title>在Markdown里放JavaScript代码</title><link href="http://blog.cndenis.com/web/2013/11/%E5%9C%A8Markdown%E9%87%8C%E6%94%BEJavaScript%E4%BB%A3%E7%A0%81.html" rel="alternate"></link><published>2013-11-03T00:00:00+08:00</published><updated>2013-11-03T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-11-03:/web/2013/11/在Markdown里放JavaScript代码.html</id><summary type="html">&lt;p&gt;MarkDown里是可以直接放HTML标签的, 也可以放&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;, 但是要注意的是,
+&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 前要空一行, 这样才不会被当成文本.&lt;/p&gt;
+&lt;p&gt;也有人说要在&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;后面空一行, 我这里试了一下, 似乎不空也行.&lt;/p&gt;
+&lt;p&gt;参考: &lt;a href="http://stackoverflow.com/questions/2754391/embed-javascript-in-markdown"&gt;Embed javascript in markdown&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;MarkDown里是可以直接放HTML标签的, 也可以放&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;, 但是要注意的是,
+&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt; 前要空一行, 这样才不会被当成文本.&lt;/p&gt;
+&lt;p&gt;也有人说要在&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;后面空一行, 我这里试了一下, 似乎不空也行.&lt;/p&gt;
+&lt;p&gt;参考: &lt;a href="http://stackoverflow.com/questions/2754391/embed-javascript-in-markdown"&gt;Embed javascript in markdown&lt;/a&gt;&lt;/p&gt;</content><category term="JavaScript"></category><category term="Markdwon"></category></entry><entry><title>MySQL中 REPLACE 与 INSERT ON DUPLICATE KEY UPDATE 的区别</title><link href="http://blog.cndenis.com/web/2013/10/MySQL%E4%B8%ADREPLACE%E4%B8%8EINSERT_ON_DUPLICATE_KEY_UPDATE%E7%9A%84%E5%8C%BA%E5%88%AB.html" rel="alternate"></link><published>2013-10-30T00:00:00+08:00</published><updated>2013-10-30T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-10-30:/web/2013/10/MySQL中REPLACE与INSERT_ON_DUPLICATE_KEY_UPDATE的区别.html</id><summary type="html">&lt;p&gt;MySQL中, 要一步实现 "如果没有则插入, 如果存在则替换" 这样的操作, 有两种方式,
+&lt;code&gt;REPLACE&lt;/code&gt; 和 &lt;code&gt;INSERT ... ON DUPLICATE KEY UPDATE&lt;/code&gt;. 这两种方法是有区别的.&lt;/p&gt;
+&lt;p&gt;它们之间的共同点是, 要求表中有 &lt;code&gt;UNIQUE&lt;/code&gt; 或 &lt;code&gt;PRIMARY KEY&lt;/code&gt; 的列,
+不然没法判断是否需要替换, 这两都会变成和普通 &lt;code&gt;INSERT&lt;/code&gt; 一样了.&lt;/p&gt;
+&lt;p&gt;不同之处在于, 如果存在重复的主键值, &lt;code&gt;REPLACE&lt;/code&gt; 执行的是&lt;strong&gt;先删除, 后插入&lt;/strong&gt;.
+这样做一个后果是会导致索引碎片化, 降低效率. 更重要的是,
+这条命令是无法进行部分更新的, 命令中没有赋值的列, 都会被设为&lt;strong&gt;默认值&lt;/strong&gt;!&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;REPLACE&lt;/code&gt; 的语法示例如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="k"&gt;REPLACE&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt;
+      &lt;span class="n"&gt;ratings&lt;/span&gt;
+    &lt;span class="k"&gt;SET&lt;/span&gt;
+      &lt;span class="n"&gt;quote_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;user_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10 …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;MySQL中, 要一步实现 "如果没有则插入, 如果存在则替换" 这样的操作, 有两种方式,
+&lt;code&gt;REPLACE&lt;/code&gt; 和 &lt;code&gt;INSERT ... ON DUPLICATE KEY UPDATE&lt;/code&gt;. 这两种方法是有区别的.&lt;/p&gt;
+&lt;p&gt;它们之间的共同点是, 要求表中有 &lt;code&gt;UNIQUE&lt;/code&gt; 或 &lt;code&gt;PRIMARY KEY&lt;/code&gt; 的列,
+不然没法判断是否需要替换, 这两都会变成和普通 &lt;code&gt;INSERT&lt;/code&gt; 一样了.&lt;/p&gt;
+&lt;p&gt;不同之处在于, 如果存在重复的主键值, &lt;code&gt;REPLACE&lt;/code&gt; 执行的是&lt;strong&gt;先删除, 后插入&lt;/strong&gt;.
+这样做一个后果是会导致索引碎片化, 降低效率. 更重要的是,
+这条命令是无法进行部分更新的, 命令中没有赋值的列, 都会被设为&lt;strong&gt;默认值&lt;/strong&gt;!&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;REPLACE&lt;/code&gt; 的语法示例如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="k"&gt;REPLACE&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt;
+      &lt;span class="n"&gt;ratings&lt;/span&gt;
+    &lt;span class="k"&gt;SET&lt;/span&gt;
+      &lt;span class="n"&gt;quote_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;user_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;INSERT ... ON DUPLICATE KEY UPDATE&lt;/code&gt; 进行的操作是, 如果存在重复的主键值,
+则执行&lt;code&gt;UPDATE&lt;/code&gt;子句的操作, 这是可以保留未赋值列的原值的. 如果没有重复主键,
+它就是普通的 &lt;code&gt;INSERT&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;示例如下:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt;
+      &lt;span class="n"&gt;ratings&lt;/span&gt;
+    &lt;span class="k"&gt;SET&lt;/span&gt;
+      &lt;span class="n"&gt;quote_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;user_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+    &lt;span class="k"&gt;ON&lt;/span&gt; &lt;span class="n"&gt;DUPLICATE&lt;/span&gt; &lt;span class="k"&gt;KEY&lt;/span&gt; &lt;span class="k"&gt;UPDATE&lt;/span&gt;
+      &lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;本文参考了:
+&lt;a href="http://thomashunter.name/blog/mysql-replace-vs-insert-on-duplicate-key-update/"&gt;MySQL REPLACE vs INSERT ON DUPLICATE KEY UPDATE&lt;/a&gt;&lt;/p&gt;</content><category term="SQL"></category></entry><entry><title>雷人的PHP的运算符优先级</title><link href="http://blog.cndenis.com/web/2013/10/PHP%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.html" rel="alternate"></link><published>2013-10-30T00:00:00+08:00</published><updated>2013-10-30T00:00:00+08:00</updated><author><name>cnDenis</name></author><id>tag:blog.cndenis.com,2013-10-30:/web/2013/10/PHP的运算符优先级.html</id><summary type="html">&lt;p&gt;PHP中的运算符优先级, 比较运算符高于位运算符, 赋值运算符高于部分逻辑运算符,
+真是坑啊.&lt;/p&gt;
+&lt;p&gt;比较运算符高于位运算符, 所以&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$A == $B &amp;amp; $C&lt;/code&gt; 等价于 &lt;code&gt;($A == $B) &amp;amp; $C&lt;/code&gt;  而 &lt;strong&gt;不是先做&lt;code&gt;&amp;amp;&lt;/code&gt;再进行比较&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;赋值运算 &lt;code&gt;and&lt;/code&gt; &lt;code&gt;or&lt;/code&gt; &lt;code&gt;xor&lt;/code&gt; 高于逻辑运算, 但却低于 &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 和 &lt;code&gt;||&lt;/code&gt;, 所以&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+    &lt;span class="nv"&gt;$a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt; &lt;span class="k"&gt;and&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 输出是 bool(true)&lt;/span&gt;
+
+    &lt;span class="nv"&gt;$b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt; &lt;span class="k"&gt;and&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$b&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 输出是 bool(false)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面那行居然是 &lt;strong&gt;先把 &lt;code&gt;true&lt;/code&gt; 赋给 &lt;code&gt;$a&lt;/code&gt;&lt;/strong&gt;, 然后再与后面的&lt;code&gt;false …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;PHP中的运算符优先级, 比较运算符高于位运算符, 赋值运算符高于部分逻辑运算符,
+真是坑啊.&lt;/p&gt;
+&lt;p&gt;比较运算符高于位运算符, 所以&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$A == $B &amp;amp; $C&lt;/code&gt; 等价于 &lt;code&gt;($A == $B) &amp;amp; $C&lt;/code&gt;  而 &lt;strong&gt;不是先做&lt;code&gt;&amp;amp;&lt;/code&gt;再进行比较&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;赋值运算 &lt;code&gt;and&lt;/code&gt; &lt;code&gt;or&lt;/code&gt; &lt;code&gt;xor&lt;/code&gt; 高于逻辑运算, 但却低于 &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 和 &lt;code&gt;||&lt;/code&gt;, 所以&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+    &lt;span class="nv"&gt;$a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt; &lt;span class="k"&gt;and&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$a&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 输出是 bool(true)&lt;/span&gt;
+
+    &lt;span class="nv"&gt;$b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;true&lt;/span&gt; &lt;span class="k"&gt;and&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nb"&gt;var_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$b&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;    &lt;span class="c1"&gt;// 输出是 bool(false)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;上面那行居然是 &lt;strong&gt;先把 &lt;code&gt;true&lt;/code&gt; 赋给 &lt;code&gt;$a&lt;/code&gt;&lt;/strong&gt;, 然后再与后面的&lt;code&gt;false&lt;/code&gt;做逻辑与.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 和 &lt;code&gt;and&lt;/code&gt; 居然还不等价, 雷死人了.&lt;/p&gt;
+&lt;p&gt;以后还是要习惯多加括号了.&lt;/p&gt;
+&lt;p&gt;完整的优先级列表可以参考
+&lt;a href="http://php.net/manual/zh/language.operators.precedence.php"&gt;官方手册&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;刚发现还有另外的坑, 这个优先级是有例外的:
+&lt;a href="http://www.laruence.com/2010/07/26/1668.html"&gt;PHP运算符优先级的一个例外&lt;/a&gt;.&lt;/p&gt;</content><category term="PHP"></category></entry></feed>

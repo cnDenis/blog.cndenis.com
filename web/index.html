@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Web - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+    <meta name="author" content="cnDenis" />
+    <meta name="keywords" content="Web" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="cnDenis的笔记"/>
+        <meta property="og:url" content="http://blog.cndenis.com"/>
+        <meta property="og:description" content="cnDenis的笔记"/>
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/web.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Web ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <article>
+                <h2><a href="http://blog.cndenis.com/web/2014/06/cannot_bind_443_on_apache_startup.html">Apache启动时报443端口被占用的处理方法</a></h2>
+                <div class="summary"><p>下午在自己机上装了Apache2.4, 启动时说443端口被占了:</p>
+<div class="highlight"><pre><span></span>(OS 10048)通常每个套接字地址(协议/网络地址/端口)只允许使用一次。  : AH00072: mak
+e_sock: could not bind to address [::]:443
+(OS 10048)通常每个套接字地址(协议/网络地址/端口)只允许使用一次。  : AH00072: mak
+e_sock: could not bind to address 0.0.0.0:443
+AH00451: no listening sockets available, shutting down
+</pre></div>
+
+
+<p>杀掉占用443的那个程序当然可以, 另一种方法是把443改成另外的不常用端口:
+如<a href="http://congjl2002.iteye.com/blog/1497640">这篇文章 …</a></p>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/web/2014/06/cannot_bind_443_on_apache_startup.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html">使用jqPlot绘制统计图-1</a></h2>
+                <div class="summary"><p>要在网页上显示统计图, 可以在服务器生成图片后发给浏览器, 也可以把数据发给浏览器,
+用JavaScript画. <a href="http://www.jqplot.com/">jqPlot</a>是后者的一种, 它是jQuery的一个插件,
+是完全运行于客户端的绘图包. 下面简介一下它的使用.</p>
+<h3>引用库文件</h3>
+<p>jqPlot 是 jQuery 插件, 需要在网页上引用 jQuery 和 jqPlot 包中的以下的几个文件.</p>
+<p>要注意这几个只是最基本的, 要做出各种图形效果的话, 需要另外再引用其他的一些文件,
+后面会分别介绍.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!--[if lt IE 9]&gt;&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;excanvas.js&quot;&gt;&lt;/script&gt;&lt;![endif]--&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;javascript&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jquery.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script …</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/web/2013/11/使用jqPlot绘制统计图-1.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.cndenis.com/web/2013/11/在Jekyll的博客中实现语法高亮.html">在Jekyll的博客中实现语法高亮</a></h2>
+                <div class="summary"><p>在Jekyll的博客中实现语法高亮方法如下:</p>
+<ol>
+<li>在配置文件 <code>_config.yml</code> 启用 pygments, 并使用redcarpet做为渲染引擎.</li>
+</ol>
+<div class="highlight"><pre><span></span>    <span class="l l-Scalar l-Scalar-Plain">pygments</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">markdown</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">redcarpet</span>
+</pre></div>
+
+
+<ol>
+<li>使用以下格式把代码括起来</li>
+</ol>
+<pre>
+    ```python
+    print("hello world")
+    ```
+</pre>
+
+<ol>
+<li>在页面上添加语法高亮的CSS文件, 像这样:</li>
+</ol>
+<div class="highlight"><pre><span></span>    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/css/pygments.css&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+
+
+<p>说明:</p>
+<p>使用 redcarpet 是为了支持所谓的 <a href="https://help.github.com/articles/github-flavored-markdown">Github风格的Markdown语法</a>,
+也就是像上面的那样三撇号加语言类型的方式进行代码引用,
+其他几个渲染引擎要用<a href="http://jekyllrb.com/docs/templates/#code_snippet_highlighting">这种比较别扭的方式</a>来把代码括起来, 我觉得这么写不好看.</p>
+<p>语法高亮的定义文件可以在 <a href="https://github.com/richleland/pygments-css/tree/master">这里</a>下载, 对应的效果可以在 <a href="http://pygments.org/demo/">pygments的官网的Demo</a>里试看.</p>
+<p>一直在纠结我的 Blog 中的代码为啥没有语法高亮,
+看着<a href="http://jekyllrb.com/">Jekyll官网</a>中漂亮的代码就更纠结了, 今天终于解决了,
+刚把十几篇文章的代码都加上语言类型, 呼 …</p>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/web/2013/11/在Jekyll的博客中实现语法高亮.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.cndenis.com/web/2013/11/在Markdown里放JavaScript代码.html">在Markdown里放JavaScript代码</a></h2>
+                <div class="summary"><p>MarkDown里是可以直接放HTML标签的, 也可以放<code>&lt;script&gt;</code>, 但是要注意的是,
+<code>&lt;script&gt;</code> 前要空一行, 这样才不会被当成文本.</p>
+<p>也有人说要在<code>&lt;script&gt;</code>后面空一行, 我这里试了一下, 似乎不空也行.</p>
+<p>参考: <a href="http://stackoverflow.com/questions/2754391/embed-javascript-in-markdown">Embed javascript in markdown</a></p>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/web/2013/11/在Markdown里放JavaScript代码.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.cndenis.com/web/2013/10/MySQL中REPLACE与INSERT_ON_DUPLICATE_KEY_UPDATE的区别.html">MySQL中 REPLACE 与 INSERT ON DUPLICATE KEY UPDATE 的区别</a></h2>
+                <div class="summary"><p>MySQL中, 要一步实现 "如果没有则插入, 如果存在则替换" 这样的操作, 有两种方式,
+<code>REPLACE</code> 和 <code>INSERT ... ON DUPLICATE KEY UPDATE</code>. 这两种方法是有区别的.</p>
+<p>它们之间的共同点是, 要求表中有 <code>UNIQUE</code> 或 <code>PRIMARY KEY</code> 的列,
+不然没法判断是否需要替换, 这两都会变成和普通 <code>INSERT</code> 一样了.</p>
+<p>不同之处在于, 如果存在重复的主键值, <code>REPLACE</code> 执行的是<strong>先删除, 后插入</strong>.
+这样做一个后果是会导致索引碎片化, 降低效率. 更重要的是,
+这条命令是无法进行部分更新的, 命令中没有赋值的列, 都会被设为<strong>默认值</strong>!</p>
+<p><code>REPLACE</code> 的语法示例如下:</p>
+<div class="highlight"><pre><span></span>    <span class="k">REPLACE</span> <span class="k">INTO</span>
+      <span class="n">ratings</span>
+    <span class="k">SET</span>
+      <span class="n">quote_id</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="n">user_id</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+      <span class="n">score</span> <span class="o">=</span> <span class="mi">10 …</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/web/2013/10/MySQL中REPLACE与INSERT_ON_DUPLICATE_KEY_UPDATE的区别.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://blog.cndenis.com/web/2013/10/PHP的运算符优先级.html">雷人的PHP的运算符优先级</a></h2>
+                <div class="summary"><p>PHP中的运算符优先级, 比较运算符高于位运算符, 赋值运算符高于部分逻辑运算符,
+真是坑啊.</p>
+<p>比较运算符高于位运算符, 所以</p>
+<p><code>$A == $B &amp; $C</code> 等价于 <code>($A == $B) &amp; $C</code>  而 <strong>不是先做<code>&amp;</code>再进行比较</strong></p>
+<p>赋值运算 <code>and</code> <code>or</code> <code>xor</code> 高于逻辑运算, 但却低于 <code>&amp;&amp;</code> 和 <code>||</code>, 所以</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="k">true</span> <span class="k">and</span> <span class="k">false</span><span class="p">;</span>
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>    <span class="c1">// 输出是 bool(true)</span>
+
+    <span class="nv">$b</span> <span class="o">=</span> <span class="k">true</span> <span class="k">and</span> <span class="k">false</span><span class="p">;</span>
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>    <span class="c1">// 输出是 bool(false)</span>
+</pre></div>
+
+
+<p>上面那行居然是 <strong>先把 <code>true</code> 赋给 <code>$a</code></strong>, 然后再与后面的<code>false …</code></p>
+                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/web/2013/10/PHP的运算符优先级.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (2)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>

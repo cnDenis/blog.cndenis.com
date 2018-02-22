@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>gen_server笔记 - cnDenis的笔记</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html">
+
+        <meta name="author" content="cnDenis" />
+        <meta name="keywords" content="Erlang,gen_server" />
+        <meta name="description" content="gen_server是erlang的OTP框架中最常用的“行为模式”了吧，至少几本erlang教材都是首 先介绍这个。 这东西用来做什么的呢？或者说，为什么要用这东西呢？由于我接触这东西不过几天， 理解尚非常粗浅，就我看来，用gen_server有以下几个好处： 面向对像，封装数据与方法。gen_server内部需要维护一个状态State，并提供各种函数 给别人调用，就类似于其他语言中的“类”一样，把数据和方法封装在一起，防止数据被非法 改动。 简化调用，屏蔽通讯。erlang中如果要自己实现远程过程调用（RPC）的话，需要自己 定义消息格式，自己编写封装与解包的代码，还要处理各种异常问题，这些gen_server 都帮我们做好了，只需要像平常使用函数一样直接调就用行了，省时省力还不出错。 热代码替换等高级功能。 热代码替换是erlang大力宣传的一项特色功能，不停机维护 在生产上是非常美妙的事。不过这是高级功能，初学暂时用不上，书上也没多讲。 gen_server模板 gen_server是可以使用模板来写的，如下： -module(). -behaviour(gen_server). %% API …" />
+
+        <meta property="og:site_name" content="cnDenis的笔记" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="gen_server笔记"/>
+        <meta property="og:url" content="http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html"/>
+        <meta property="og:description" content="gen_server是erlang的OTP框架中最常用的“行为模式”了吧，至少几本erlang教材都是首 先介绍这个。 这东西用来做什么的呢？或者说，为什么要用这东西呢？由于我接触这东西不过几天， 理解尚非常粗浅，就我看来，用gen_server有以下几个好处： 面向对像，封装数据与方法。gen_server内部需要维护一个状态State，并提供各种函数 给别人调用，就类似于其他语言中的“类”一样，把数据和方法封装在一起，防止数据被非法 改动。 简化调用，屏蔽通讯。erlang中如果要自己实现远程过程调用（RPC）的话，需要自己 定义消息格式，自己编写封装与解包的代码，还要处理各种异常问题，这些gen_server 都帮我们做好了，只需要像平常使用函数一样直接调就用行了，省时省力还不出错。 热代码替换等高级功能。 热代码替换是erlang大力宣传的一项特色功能，不停机维护 在生产上是非常美妙的事。不过这是高级功能，初学暂时用不上，书上也没多讲。 gen_server模板 gen_server是可以使用模板来写的，如下： -module(). -behaviour(gen_server). %% API …"/>
+        <meta property="article:published_time" content="2013-04-24" />
+            <meta property="article:section" content="Erlang" />
+            <meta property="article:tag" content="Erlang" />
+            <meta property="article:tag" content="gen_server" />
+            <meta property="article:author" content="cnDenis" />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+
+        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 ATOM Feed"/>
+
+
+
+        <link href="http://blog.cndenis.com/feeds/erlang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="cnDenis的笔记 Erlang ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://blog.cndenis.com/" class="navbar-brand">
+cnDenis的笔记            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                             关于我
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html"
+                       rel="bookmark"
+                       title="Permalink to gen_server笔记">
+                        gen_server笔记
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2013-04-24T00:00:00+08:00"> 2013年04月24日 星期三</time>
+    </span>
+          <span class="label label-default">Modified</span>
+            <span class="modified">
+                <i class="fa fa-calendar"></i><time datetime="2013-09-13T00:00:00+08:00"> 2013年09月13日 星期五</time>
+            </span>
+
+
+
+        <span class="label label-default">Category</span>
+        <a href="http://blog.cndenis.com/erlang/index.html">Erlang</a>
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+        /
+	<a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html"
+                       rel="bookmark"
+                       title="Permalink to gen_server笔记">
+                        http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html
+                    </a>
+                </p>
+                <p>gen_server是erlang的OTP框架中最常用的“行为模式”了吧，至少几本erlang教材都是首
+先介绍这个。</p>
+<p><strike>
+这东西用来做什么的呢？或者说，为什么要用这东西呢？由于我接触这东西不过几天，
+理解尚非常粗浅，就我看来，用gen_server有以下几个好处：</p>
+<ul>
+<li>
+<p><em>面向对像，封装数据与方法</em>。gen_server内部需要维护一个状态State，并提供各种函数
+给别人调用，就类似于其他语言中的“类”一样，把数据和方法封装在一起，防止数据被非法
+改动。</p>
+</li>
+<li>
+<p><em>简化调用，屏蔽通讯</em>。erlang中如果要自己实现远程过程调用（RPC）的话，需要自己
+定义消息格式，自己编写封装与解包的代码，还要处理各种异常问题，这些gen_server
+都帮我们做好了，只需要像平常使用函数一样直接调就用行了，省时省力还不出错。</p>
+</li>
+<li>
+<p><em>热代码替换等高级功能</em>。 热代码替换是erlang大力宣传的一项特色功能，不停机维护
+在生产上是非常美妙的事。不过这是高级功能，初学暂时用不上，书上也没多讲。
+</strike></p>
+</li>
+</ul>
+<h2>gen_server模板</h2>
+<p>gen_server是可以使用模板来写的，如下：</p>
+<div class="highlight"><pre><span></span>    <span class="o">-</span><span class="n">module</span><span class="p">().</span>
+
+    <span class="o">-</span><span class="n">behaviour</span><span class="p">(</span><span class="n">gen_server</span><span class="p">).</span>
+
+    <span class="c">%% API</span>
+    <span class="o">-</span><span class="n">export</span><span class="p">([]).</span>
+
+    <span class="c">%% gen_server callbacks</span>
+    <span class="o">-</span><span class="n">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">handle_call</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">handle_cast</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">handle_info</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+           <span class="n">terminate</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_change</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span>
+
+    <span class="o">-</span><span class="n">define</span><span class="p">(</span><span class="nv">SERVER</span><span class="p">,</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">).</span>
+
+    <span class="n">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+        <span class="nn">gen_server</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="nv">SERVER</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+
+    <span class="n">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+    <span class="n">handle_call</span><span class="p">(_</span><span class="nv">Request</span><span class="p">,</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="nv">Reply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+    <span class="n">handle_cast</span><span class="p">(_</span><span class="nv">Msg</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+    <span class="n">handle_info</span><span class="p">(_</span><span class="nv">Info</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+    <span class="n">terminate</span><span class="p">(_</span><span class="nv">Reason</span><span class="p">,</span> <span class="p">_</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="n">ok</span><span class="p">.</span>
+
+    <span class="n">code_change</span><span class="p">(_</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="p">_</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span>
+        <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</pre></div>
+
+
+<p>含义如下：</p>
+<p>-module 是模块名，就是文件名。</p>
+<p>-behaviour 是指定“行为模式”，在这里就是gen_server，作用在于用于检查这个模块是否
+实现gen_server的所有接口。也就是 <code>init/1</code>, <code>handle_call/3</code>, <code>handle_cast/2</code>,
+<code>handle_info/2</code>, <code>terminate/2</code>, <code>code_change/3</code>这六个函数。缺少的话编译器就会
+报错。</p>
+<p>-export 有两个，第一个里面写的是API，也就是供别人调用的接口，第二个是gen_server
+的接口，就是上面说的那六个。其实要写到同一个export里也可以，不过分开写比较清楚。</p>
+<p>接下来就是各API函数，一般来说就是封装、调用各用回调函数的包装函数。</p>
+<p>再往后就是六个回调函数的具体实现。回调函数是负责具体干活的。</p>
+<p>大概可以做这么个比喻吧，如果整个模块是个昆虫，API是就头，gen_server就是身子，而
+回调函数是六条腿。你告诉头说要去哪里，腿就运动起来，整条虫子就跑起来了。身子是
+把各条腿粘起来，否则单独的腿只能在原地抽筋，哪都去不了。</p>
+<h2>启动服务器</h2>
+<p>用来启动服务器的有<code>start/3</code>,<code>start/4</code>,<code>start_link/3</code>,<code>start_link/4</code>这四个函数。
+使用这些start函数之后，就会产生一个新的进程，也就是一个gen_server服务器。这些
+start函数的正常情况下返回值是<code>{ok,Pid}</code>，<code>Pid</code>就是这个新进程的进程号。
+带link与不带的区别在于是否跟父进程建立链接，换种说法是，新启动的进程死掉后，
+会不会通知启动他的进程（父进程）。</p>
+<p>start函数可以四个参数<code>(ServerName, Module, Args, Options)</code>：</p>
+<ul>
+<li>
+<p>第一个参数<code>ServerName</code>是服务名，
+是可以省掉的。具有相同服务名的模块在一个节点中只能启动一次，重复启动会报错，为
+<code>{error, {already_started, Pid}}</code>。具有服务名的服务进程可以使用服务名来调用，
+没有服务名的只能通过进程号pid来调用了。通常有名字的服务进程会使用模块名做为
+服务名，即上面模板中定义的宏<code>-define(SERVER, ?MODULE)</code>，然后在需要使用服务名的
+地方填入<code>?SERVER</code>.</p>
+</li>
+<li>
+<p>第二个参数<code>Module</code>是模块名，一般而言API和回调函数是写在同一个文件里的，所以就用
+<code>?MODULE</code>，表示本模块的模块名。</p>
+</li>
+<li>
+<p>第三个参数<code>Args</code>是回调函数<code>init/1</code>的参数，会原封不动地传给<code>init/1</code>。</p>
+</li>
+<li>
+<p>第四个参数<code>Options</code>是一些选项，可以设置debug、超时等东西。</p>
+</li>
+</ul>
+<p>start是对应的回调函数是<code>init/1</code>，一般来说是进行服务器启动后的一些初始化的工作，
+并生成初始的状态State，正常返回是{ok, State}。这个State是贯穿整个服务器，
+并把所有六个回调函数联系起来的纽带。它的值最初由<code>init/1</code>生成，
+此后可以由三个handle函数修改，每次修改后又要放回返回值中，
+供下一个被调用的handle函数使用。
+如果<code>init/1</code>返回<code>ignore</code>或<code>{stop, Reason}</code>，则会中止服务器的启动。</p>
+<p>有一点细节要注意的是，API函数和回调函数虽然习惯上是写在同一个文件中，但执行函数
+的进程却通常是不一样的。在上面的模板中，<code>start_link/0</code>中使用<code>self()</code>的话，显示
+的是调用者的进程号，而在<code>init/1</code>中使用<code>self()</code>的话，显示的是服务器的进程号。</p>
+<h2>使用服务器</h2>
+<p>三个handle开头的回调函数对应着三种不同的使用服务器的方式。如下：</p>
+<div class="highlight"><pre><span></span><span class="n">gen_server</span><span class="o">:</span><span class="n">call</span>     <span class="o">-------------</span>   <span class="n">handle_call</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">gen_server</span><span class="o">:</span><span class="n">cast</span>     <span class="o">-------------</span>   <span class="n">handle_cast</span><span class="o">/</span><span class="mi">2</span>
+<span class="err">用！向服务进程发消息</span><span class="o">-------------</span>   <span class="n">handle_info</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+
+
+<p>call是有返回值的调用；cast是无返回值的调用，即通知；而直接向服务器进程发的
+消息则由handle_info处理。</p>
+<h3>call</h3>
+<p>call是有返回值的调用，也是所谓的同步调用，进程会在调用后一直等待直到回调函数返回为止。
+它的函数形式是 <code>gen_server:call(ServerRef, Request, Timeout) -&gt; Reply</code>，</p>
+<ul>
+<li>第一个参数<code>ServerRef</code>是被调用的服务器，如果是服务器名，或是服务器的pid。</li>
+<li>第二个参数<code>Request</code>会直接传给回调函数<code>handle_call</code></li>
+<li>最后一个参数<code>Timeout</code>是超时，是可以省略的，默认值是5秒。</li>
+</ul>
+<p>在多节点的情况下，还有机会使用到<code>multi_call</code>，用来向各节点上的同具有相同注册名
+的服务进程发起调用。（这个函数在文档上的表述有点让人难以理解，详见
+<a href="http://erlang.2086793.n4.nabble.com/Question-about-gen-server-multi-call-2-td2104905.html">这里</a>）</p>
+<p>call是用来指挥回调函数<code>handle_call/3</code>干活的。具体形式为
+<code>handle_call(Request, From, State)</code>。</p>
+<ul>
+<li>第一个参数<code>Request</code>是由call传进来的，是写程序时关注和处理的重点。</li>
+<li>第二个参数<code>From</code>是gen_server传进来的，是调用的来源，也就是哪个进程执行了call。
+<code>From</code>的形式是<code>{Pid, Ref}</code>，<code>Pid</code>是来源进程号，而<code>Ref</code>是调用的标识，每一次调用
+都不一样，用以区别。有了Pid，在需要向来源进程发送消息时就可以使用，但由于call
+是有返回值的，一般使用返回值传递数据就好。</li>
+<li>第三个参数<code>State</code>是服务器的状态，这是由init或是其他的handle函数生成的，可以根据需要进
+行修改之后，再放回返回值中。</li>
+</ul>
+<p>call对应的回调函数<code>handle_call/3</code>在正常情况下的返回值是<code>{reply, Reply, NewState}</code>，
+<code>Reply</code>会作为call的返回值传递回去，<code>NewState</code>则会作为服务器的状态。
+另外还可以使用<code>{stop, Reasion, State}</code>中止服务器运行，这比较少用。</p>
+<p>使用call要小心的是，<strong>两个服务器进程不能互相call</strong>，不然会死锁。</p>
+<h3>cast</h3>
+<p>cast是没有返回值的调用，一般把它叫做通知。它是一个“异步”的调用，调用后会直接收到
+<code>ok</code>，无需等待回调函数执行完毕。</p>
+<p>它的形式是<code>gen_server:cast(ServerRef, Request)</code>。参数含义
+与call相同。由于不需要等待返回，所以没必要设置超时，没有第三个参数。</p>
+<p>在多节点的情况下，可以用<code>abcast</code>，向各节点上的具有指定名字的服务进程发通知。
+（奇怪的是为啥为不叫<code>multi_cast</code>，明明长得跟<code>multi_call</code>很像的）</p>
+<p>cast们对应的回调函数是<code>handle_cast/2</code>，具体为：<code>handle_cast(Msg, State)</code>。
+第一个参数是由cast传进去的，第二个是服务器状态，和call类似，不多说。</p>
+<p><code>handel_cast/2</code>的返回值通常是<code>{noreply, NewState}</code>，这可以用来改变服务器状态，
+或是<code>{stop, Reason, NewState}</code>，这会停止服务器。通常来说，停止服务器的命令用
+cast来实现比较多。</p>
+<h3>原生消息</h3>
+<p>原生消息是指不通过call或cast，直接发往服务器进程的消息，有些书上译成“带外消息”。
+比方说网络套接字socket发来的消息、别的进程用!发过来的消息、跟服务器建立链接的进程死掉了，
+发来<code>{'EXIT', Pid, Why}</code>等等。一般写程序要尽量用API，不要直接用!向服务器进程发消息，
+但对于socket一类的依赖于消息的应用，就不得不处理原生消息了。</p>
+<p>原生消息使用<code>handle_info/2</code>处理，具体为<code>handle_info(Info, State)</code>。其中Info是
+发过来的消息的内容。回复和<code>handle_cast</code>是一样的。</p>
+<h1>停止服务器</h1>
+<p>上面介绍的handle函数返回{stop,...}，就会使用回调函数<code>terminate/2</code>进行扫尾工作。
+典型的如关闭已打开的资源、文件、网络连接，打log做记录，通知别的进程“我要死啦”，
+或是“信春哥，满血复活”：利用传进来的状态State重新启动服务器。</p>
+<p>最简单的就是啥都不干，返回ok就好了。</p>
+<hr>
+<p>参考资料和资源：</p>
+<p><a href="http://www.erlang.org/doc/man/gen_server.html">gen_server的文档</a></p>
+<p><a href="http://www.erlang.org/doc/design_principles/gen_server_concepts.html">OTP设计原则中gen_server的介绍</a></p>
+<h4>更新(2013年9月13日)</h4>
+<p>虽然笔记跟抄书没啥区别, 但抄一遍总会加强记忆的, 所以还是贴出来.</p>
+<p>call 操作会阻塞, 而且有死锁的可能性, 用起来要小心.</p>
+                <p class="permalink"> 原文地址:
+                    <a href="http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html"
+                       rel="bookmark"
+                       title="Permalink to gen_server笔记">
+                        http://blog.cndenis.com/erlang/2013/04/gen_server笔记.html
+                    </a>
+                </p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+    <p>
+      <strong>About cnDenis</strong><br/>
+        <a href="/pages/about.html"><img class="center" src="http://gravatar.com/avatar/8373fc5c4d82aeba56db52f7317ab48d?s=160"></a>
+    </p>
+</div><!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Categories -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
+  <ul class="list-group" id="categories">
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group list-inline tagcloud" id="tags">
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+    </li>
+    <li class="list-group-item tag-1">
+      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+    </li>
+    <li class="list-group-item tag-4">
+      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
+
+<!-- Sidebar/Links -->
+<li class="list-group-item">
+  <h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+  <ul class="list-group" id="links">
+    <li class="list-group-item">
+      <a href="http://www.erlang.org/" target="_blank">Erlang官网</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://getpelican.com/" target="_blank">Pelican官网</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Links -->
+
+<!-- Sidebar/Archive -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
+  <ul class="list-group" id="archive">
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (6)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/11/index.html"><i class="fa fa-calendar fa-lg"></i>十一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2013/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2013 (3)
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="http://blog.cndenis.com/archive/2012/12/index.html"><i class="fa fa-calendar fa-lg"></i>十二月 2012 (5)
+          </a>
+        </li>
+  </ul>
+</li>
+<!-- End Sidebar/Archive -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 cnDenis
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+
+
+
+
+</body>
+</html>
