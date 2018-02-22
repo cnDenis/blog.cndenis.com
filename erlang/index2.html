@@ -17,26 +17,26 @@
         <meta property="og:site_name" content="cnDenis的笔记" />
         <meta property="og:type" content="website"/>
         <meta property="og:title" content="cnDenis的笔记"/>
-        <meta property="og:url" content="http://blog.cndenis.com"/>
+        <meta property="og:url" content="https://blog.cndenis.com"/>
         <meta property="og:description" content="cnDenis的笔记"/>
 
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
-    <link href="http://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://blog.cndenis.com/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://blog.cndenis.com/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="http://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
-    <link href="http://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://blog.cndenis.com/theme/css/style.css" type="text/css"/>
-        <link href="http://blog.cndenis.com/static/custom.css" rel="stylesheet">
+    <link href="https://blog.cndenis.com/theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="https://blog.cndenis.com/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://blog.cndenis.com/theme/css/style.css" type="text/css"/>
+        <link href="https://blog.cndenis.com/static/custom.css" rel="stylesheet">
 
-        <link href="http://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="https://blog.cndenis.com/feeds/atom.xml" type="application/atom+xml" rel="alternate"
               title="cnDenis的笔记 ATOM Feed"/>
 
 
 
-        <link href="http://blog.cndenis.com/feeds/erlang.atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="https://blog.cndenis.com/feeds/erlang.atom.xml" type="application/atom+xml" rel="alternate"
               title="cnDenis的笔记 Erlang ATOM Feed"/>
 
 </head>
@@ -51,12 +51,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="http://blog.cndenis.com/" class="navbar-brand">
+            <a href="https://blog.cndenis.com/" class="navbar-brand">
 cnDenis的笔记            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li><a href="http://blog.cndenis.com/pages/about.html">
+                         <li><a href="https://blog.cndenis.com/pages/about.html">
                              关于我
                           </a></li>
             </ul>
@@ -77,7 +77,7 @@ cnDenis的笔记            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
-                <h2><a href="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html">OTP监控树笔记</a></h2>
+                <h2><a href="https://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html">OTP监控树笔记</a></h2>
                 <div class="summary"><p>这是Learn You Some Erlang中的<a href="http://learnyousomeerlang.com/building-applications-with-otp">Building an Applications with Otp</a>的笔记.</p>
 <p>在文中, OTP被戏称为Onion Theory Platform, 监控树像洋葱一样, 一层又一层.</p>
 <p>OTP的哲学是工人-监工, 工作进程做错事就让它死掉, 监督进程再开启新的工作进程来干活.
@@ -100,12 +100,12 @@ cnDenis的笔记            </a>
 <p>所谓进程池, 就是可以容纳一定数量的进程同时运行, 当同时运行的进程数达到限制时,
 把工作放入队列进行排队, 等待有空位时再开始新的任务.</p>
 <p>做这么一个进程池, 需要有一个服务进程来计数同时运行的工作进程数 …</p>
-                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="https://blog.cndenis.com/erlang/2014/06/note_of_otp_supervior_tree.html">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://blog.cndenis.com/erlang/2014/05/cowboy_inline_lower_case.html">【Erl代码片段】cowboy的一处大小写处理代码</a></h2>
+                <h2><a href="https://blog.cndenis.com/erlang/2014/05/cowboy_inline_lower_case.html">【Erl代码片段】cowboy的一处大小写处理代码</a></h2>
                 <div class="summary"><p>在cowboy的库cowlib中的<a href="https://github.com/extend/cowlib/blob/master/include/cow_inline.hrl">cow_inline.hrl</a>文件看到一堆很长的宏:</p>
 <div class="highlight"><pre><span></span><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">INLINE_LOWERCASE</span><span class="p">(</span><span class="nv">Function</span><span class="p">,</span> <span class="nv">Rest</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">),</span>
     <span class="sc">$A</span> <span class="o">-&gt;</span> <span class="nv">Function</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="o">&lt;&lt;</span> <span class="nv">Acc</span><span class="o">/</span><span class="n">binary</span><span class="p">,</span> <span class="sc">$a</span> <span class="o">&gt;&gt;</span><span class="p">);</span>
@@ -115,12 +115,12 @@ cnDenis的笔记            </a>
     <span class="sc">$E</span> <span class="o">-&gt;</span> <span class="nv">Function</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="o">&lt;&lt;</span> <span class="nv">Acc</span><span class="o">/</span><span class="n">binary</span><span class="p">,</span> <span class="sc">$e</span> <span class="o">&gt;&gt;</span><span class="p">);</span>
     <span class="sc">$F</span> <span class="o">-&gt;</span> <span class="nv">Function</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="o">&lt;&lt;</span> <span class="nv">Acc</span><span class="o">/</span><span class="n">binary</span><span class="p">,</span> <span class="sc">$f</span> <span class="o">&gt;&gt;</span><span class="p">);</span>
     <span class="sc">$G</span> <span class="o">-&gt;</span> <span class="nv">Function</span><span class="p">(</span><span class="nv">Rest</span><span class="p">,</span> <span class="o">&lt;&lt;</span> <span class="nv">Acc</span><span class="o">/</span><span class="n">binary …</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2014/05/cowboy_inline_lower_case.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="https://blog.cndenis.com/erlang/2014/05/cowboy_inline_lower_case.html">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://blog.cndenis.com/erlang/2014/05/faster_proplists_get_value.html">【Erl代码片段】更快的proplists:get_value/3</a></h2>
+                <h2><a href="https://blog.cndenis.com/erlang/2014/05/faster_proplists_get_value.html">【Erl代码片段】更快的proplists:get_value/3</a></h2>
                 <div class="summary"><p>在cowboy的<a href="https://github.com/extend/cowboy/blob/master/src/cowboy_protocol.erl">cowboy_protocol.erl</a>
 文件中看到如这样一下函数:</p>
 <div class="highlight"><pre><span></span><span class="c">%% Faster alternative to proplists:get_value/3.</span>
@@ -136,12 +136,12 @@ cnDenis的笔记            </a>
 结果这个函数比 <code>proplists:get_value/3</code> 快5倍, 对于更长的列表差别更大.</p>
 <div class="highlight"><pre><span></span><span class="n">bench</span><span class="o">:</span><span class="n">get_value</span><span class="o">/</span><span class="mi">3</span>
 <span class="n">Single</span> <span class="n">Process</span><span class="o">:</span>   <span class="mi">13035909</span> <span class="n">call</span> <span class="n">per</span> <span class="n">sec</span><span class="o">,</span>   <span class="mi">16777216</span> <span class="n">times</span> <span class="k">in</span>  <span class="mi">1287</span> <span class="n">ms …</span></pre></div>
-                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2014/05/faster_proplists_get_value.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="https://blog.cndenis.com/erlang/2014/05/faster_proplists_get_value.html">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://blog.cndenis.com/erlang/2014/05/Erlang中的各种size.html">Erlang数据项的size</a></h2>
+                <h2><a href="https://blog.cndenis.com/erlang/2014/05/Erlang中的各种size.html">Erlang数据项的size</a></h2>
                 <div class="summary"><p>Erlang中数据项(Erlang Term)的所占据的空间大小可以用各种size来获取.</p>
 <ul>
 <li>
@@ -157,12 +157,12 @@ cnDenis的笔记            </a>
 <h3><code>erlang:external_size/1</code></h3>
 <p><a href="http://erlang.org/doc/man/erlang.html#external_size-1">erlang:external_size/1</a> 用来获取erlang数据项的外部格式(<a href="http://erlang.org/doc/apps/erts/erl_ext_dist.html">External Term Format</a>)<em>最大</em>大小. 所谓外部格式, 就是用<code>term_to_binary/1</code>
 打包形成的格式, 如果要把数据项从一台节点发到另一个节点, 或是持久化装到数据库中 …</p>
-                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2014/05/Erlang中的各种size.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="https://blog.cndenis.com/erlang/2014/05/Erlang中的各种size.html">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://blog.cndenis.com/erlang/2013/10/Erlang中IPv4地址与整数的转换.html">Erlang中IPv4地址与整数的转换</a></h2>
+                <h2><a href="https://blog.cndenis.com/erlang/2013/10/Erlang中IPv4地址与整数的转换.html">Erlang中IPv4地址与整数的转换</a></h2>
                 <div class="summary"><p>IPv4地址通常表示为 A.B.C.D, 其中A-D都是0-255之间的整数, 总长为32位, 因此,
 可以使用单一个32位无符号整数表示一个IP地址.</p>
 <p>Erlang 中可以使用以下方式进行转换:</p>
@@ -177,12 +177,12 @@ cnDenis的笔记            </a>
 
 
 <p>上面两个函数没考虑溢出的问题, 溢出的部分会被截断, 比如说 A 输入 257 会被视为 …</p>
-                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2013/10/Erlang中IPv4地址与整数的转换.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="https://blog.cndenis.com/erlang/2013/10/Erlang中IPv4地址与整数的转换.html">more ...</a>
                 </div>
             </article>
             <hr/>
             <article>
-                <h2><a href="http://blog.cndenis.com/erlang/2013/10/Erlang的大小比较.html">Erlang的大小比较</a></h2>
+                <h2><a href="https://blog.cndenis.com/erlang/2013/10/Erlang的大小比较.html">Erlang的大小比较</a></h2>
                 <div class="summary"><p>Erlang 里, 不只数字可以比较大小, 基本上所有变量都可以比较大小.</p>
 <p>大小关系是:</p>
 <div class="highlight"><pre><span></span>数字 &lt; 原子 &lt; reference &lt; 函数 &lt; 端口 &lt; pid &lt; 元组 &lt; 列表 &lt; 二进制
@@ -202,24 +202,24 @@ cnDenis的笔记            </a>
 <p>update: 2014年6月8日</p>
 <p>所有数据项都可以比较, 在进行<code>lists:sort/2</code>的时候就会很方便.</p>
 <p>而且, 要保证 <code>Val</code> 是个数字, 更合理的应该是 …</p>
-                    <a class="btn btn-default btn-xs" href="http://blog.cndenis.com/erlang/2013/10/Erlang的大小比较.html">more ...</a>
+                    <a class="btn btn-default btn-xs" href="https://blog.cndenis.com/erlang/2013/10/Erlang的大小比较.html">more ...</a>
                 </div>
             </article>
             <hr/>
 
         <ul class="pagination">
-                <li class="prev"><a href="http://blog.cndenis.com/erlang/index.html">&laquo;</a>
+                <li class="prev"><a href="https://blog.cndenis.com/erlang/index.html">&laquo;</a>
                 </li>
                     <li class=""><a
-                            href="http://blog.cndenis.com/erlang/index.html">1</a></li>
+                            href="https://blog.cndenis.com/erlang/index.html">1</a></li>
                     <li class="active"><a
-                            href="http://blog.cndenis.com/erlang/index2.html">2</a></li>
+                            href="https://blog.cndenis.com/erlang/index2.html">2</a></li>
                     <li class=""><a
-                            href="http://blog.cndenis.com/erlang/index3.html">3</a></li>
+                            href="https://blog.cndenis.com/erlang/index3.html">3</a></li>
                     <li class=""><a
-                            href="http://blog.cndenis.com/erlang/index4.html">4</a></li>
+                            href="https://blog.cndenis.com/erlang/index4.html">4</a></li>
                 <li class="next"><a
-                        href="http://blog.cndenis.com/erlang/index3.html">&raquo;</a></li>
+                        href="https://blog.cndenis.com/erlang/index3.html">&raquo;</a></li>
         </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -238,19 +238,19 @@ cnDenis的笔记            </a>
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4>
   <ul class="list-group" id="categories">
     <li class="list-group-item">
-      <a href="http://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
+      <a href="https://blog.cndenis.com/erlang/index.html"><i class="fa fa-folder-open fa-lg"></i>Erlang</a>
     </li>
     <li class="list-group-item">
-      <a href="http://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
+      <a href="https://blog.cndenis.com/network/index.html"><i class="fa fa-folder-open fa-lg"></i>Network</a>
     </li>
     <li class="list-group-item">
-      <a href="http://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
+      <a href="https://blog.cndenis.com/python/index.html"><i class="fa fa-folder-open fa-lg"></i>Python</a>
     </li>
     <li class="list-group-item">
-      <a href="http://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
+      <a href="https://blog.cndenis.com/tools/index.html"><i class="fa fa-folder-open fa-lg"></i>Tools</a>
     </li>
     <li class="list-group-item">
-      <a href="http://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
+      <a href="https://blog.cndenis.com/web/index.html"><i class="fa fa-folder-open fa-lg"></i>Web</a>
     </li>
   </ul>
 </li>
@@ -258,124 +258,124 @@ cnDenis的笔记            </a>
 
 <!-- Sidebar/Tag Cloud -->
 <li class="list-group-item">
-  <a href="http://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <a href="https://blog.cndenis.com/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
   <ul class="list-group list-inline tagcloud" id="tags">
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/all.html">all</a>
+      <a href="https://blog.cndenis.com/tag/all.html">all</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/any.html">any</a>
+      <a href="https://blog.cndenis.com/tag/any.html">any</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/apache.html">Apache</a>
+      <a href="https://blog.cndenis.com/tag/apache.html">Apache</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/atom.html">Atom</a>
+      <a href="https://blog.cndenis.com/tag/atom.html">Atom</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
+      <a href="https://blog.cndenis.com/tag/beautifulsoup.html">BeautifulSoup</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/bif.html">BIF</a>
+      <a href="https://blog.cndenis.com/tag/bif.html">BIF</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/binary.html">Binary</a>
+      <a href="https://blog.cndenis.com/tag/binary.html">Binary</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/bing-fa.html">并发</a>
+      <a href="https://blog.cndenis.com/tag/bing-fa.html">并发</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/blog.html">Blog</a>
+      <a href="https://blog.cndenis.com/tag/blog.html">Blog</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/configparser.html">configparser</a>
+      <a href="https://blog.cndenis.com/tag/configparser.html">configparser</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
+      <a href="https://blog.cndenis.com/tag/dai-ma-pian-duan.html">代码片段</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
+      <a href="https://blog.cndenis.com/tag/dialyzer.html">Dialyzer</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/disqus.html">Disqus</a>
+      <a href="https://blog.cndenis.com/tag/disqus.html">Disqus</a>
     </li>
     <li class="list-group-item tag-1">
-      <a href="http://blog.cndenis.com/tag/erlang.html">Erlang</a>
+      <a href="https://blog.cndenis.com/tag/erlang.html">Erlang</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/ets.html">ets</a>
+      <a href="https://blog.cndenis.com/tag/ets.html">ets</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/gen_server.html">gen_server</a>
+      <a href="https://blog.cndenis.com/tag/gen_server.html">gen_server</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="http://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
+      <a href="https://blog.cndenis.com/tag/helloworld.html">HelloWorld</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/ide.html">IDE</a>
+      <a href="https://blog.cndenis.com/tag/ide.html">IDE</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/javascript.html">JavaScript</a>
+      <a href="https://blog.cndenis.com/tag/javascript.html">JavaScript</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
+      <a href="https://blog.cndenis.com/tag/jekyll.html">Jekyll</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
+      <a href="https://blog.cndenis.com/tag/jqplot.html">jqPlot</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/lie-biao.html">列表</a>
+      <a href="https://blog.cndenis.com/tag/lie-biao.html">列表</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/lists.html">lists</a>
+      <a href="https://blog.cndenis.com/tag/lists.html">lists</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
+      <a href="https://blog.cndenis.com/tag/markdwon.html">Markdwon</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
+      <a href="https://blog.cndenis.com/tag/nonlocal.html">nonlocal</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/otp.html">OTP</a>
+      <a href="https://blog.cndenis.com/tag/otp.html">OTP</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/php.html">PHP</a>
+      <a href="https://blog.cndenis.com/tag/php.html">PHP</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/proplists.html">proplists</a>
+      <a href="https://blog.cndenis.com/tag/proplists.html">proplists</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
+      <a href="https://blog.cndenis.com/tag/pygraphviz.html">PyGraphviz</a>
     </li>
     <li class="list-group-item tag-2">
-      <a href="http://blog.cndenis.com/tag/python.html">Python</a>
+      <a href="https://blog.cndenis.com/tag/python.html">Python</a>
     </li>
     <li class="list-group-item tag-3">
-      <a href="http://blog.cndenis.com/tag/shi-jian.html">时间</a>
+      <a href="https://blog.cndenis.com/tag/shi-jian.html">时间</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/sql.html">SQL</a>
+      <a href="https://blog.cndenis.com/tag/sql.html">SQL</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/string.html">String</a>
+      <a href="https://blog.cndenis.com/tag/string.html">String</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/sublime.html">Sublime</a>
+      <a href="https://blog.cndenis.com/tag/sublime.html">Sublime</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/supervisor.html">supervisor</a>
+      <a href="https://blog.cndenis.com/tag/supervisor.html">supervisor</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/tk.html">Tk</a>
+      <a href="https://blog.cndenis.com/tag/tk.html">Tk</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
+      <a href="https://blog.cndenis.com/tag/ulipad.html">Ulipad</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/zhong-wen.html">中文</a>
+      <a href="https://blog.cndenis.com/tag/zhong-wen.html">中文</a>
     </li>
     <li class="list-group-item tag-4">
-      <a href="http://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
+      <a href="https://blog.cndenis.com/tag/zi-fu-chuan.html">字符串</a>
     </li>
   </ul>
 </li>
@@ -400,35 +400,35 @@ cnDenis的笔记            </a>
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Archive</span></h4>
   <ul class="list-group" id="archive">
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
+          <a href="https://blog.cndenis.com/archive/2015/01/index.html"><i class="fa fa-calendar fa-lg"></i>一月 2015 (1)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
+          <a href="https://blog.cndenis.com/archive/2014/09/index.html"><i class="fa fa-calendar fa-lg"></i>九月 2014 (1)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (5)
+          <a href="https://blog.cndenis.com/archive/2014/06/index.html"><i class="fa fa-calendar fa-lg"></i>六月 2014 (5)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
+          <a href="https://blog.cndenis.com/archive/2014/05/index.html"><i class="fa fa-calendar fa-lg"></i>五月 2014 (3)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (2)
+          <a href="https://blog.cndenis.com/archive/2013/10/index.html"><i class="fa fa-calendar fa-lg"></i>十月 2013 (2)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
+          <a href="https://blog.cndenis.com/archive/2013/08/index.html"><i class="fa fa-calendar fa-lg"></i>八月 2013 (1)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
+          <a href="https://blog.cndenis.com/archive/2013/04/index.html"><i class="fa fa-calendar fa-lg"></i>四月 2013 (3)
           </a>
         </li>
         <li class="list-group-item">
-          <a href="http://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
+          <a href="https://blog.cndenis.com/archive/2013/03/index.html"><i class="fa fa-calendar fa-lg"></i>三月 2013 (4)
           </a>
         </li>
   </ul>
@@ -456,13 +456,13 @@ cnDenis的笔记            </a>
       </div>
    </div>
 </footer>
-<script src="http://blog.cndenis.com/theme/js/jquery.min.js"></script>
+<script src="https://blog.cndenis.com/theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="http://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
+<script src="https://blog.cndenis.com/theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="http://blog.cndenis.com/theme/js/respond.min.js"></script>
+<script src="https://blog.cndenis.com/theme/js/respond.min.js"></script>
 
 
 
