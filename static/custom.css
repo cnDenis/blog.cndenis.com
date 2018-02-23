@@ -1,4 +1,8 @@
 
+body {
+    font-family: -apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+}
+
 /* 侧边栏 月份文章*/
 #archive li.list-group-item {
     padding: 2px 15px;
